@@ -1,0 +1,28 @@
+{
+  "name": "transformer-fiddle",
+  "version": "1.0.0",
+  "description": "Js Fiddle for ES6, using different transformers avaiable (e.g. babeljs)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Js",
+    "Fiddle",
+    "ECMAScript",
+    "6",
+    "ES6",
+    "ES",
+    "next"
+  ],
+  "author": "Matthisk Heimensen",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^5.2.17",
+    "codemirror": "^5.2.0",
+    "typescript": "^1.5.0-beta"
+  },
+  "devDependencies": {
+    "gulp-webserver": "^0.9.1"
+  }
+}

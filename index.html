@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css"/> 
+    <style>
+      body { margin: 0; padding: 0; }      
+
+      #input { display: none; }
+      #output { display: none; }
+
+      .toolbar {
+        width: 100%; height: 30px;
+        padding: 5px;
+        background-color: #ddd;
+      }
+  
+      .cm-s-default {
+        width: 50%; height: 70%;
+        float: left;
+      }
+
+      #console {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        border-color: #ddd;
+        padding: 5px;
+        font-size: 9pt;
+        line-height: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+  <div class="toolbar">
+    <button id="run">Run</button>
+    <button id="transform">Transform</button> 
+    <select id="compiler">
+      <option value="Babel">Babel JS</option>
+      <option value="Traceur">Traceur</option>
+    </select>
+  </div>
+  <textarea id="input">var f = x => x;</textarea>
+  <textarea id="output"></textarea>
+
+  <textarea id="console"></textarea>
+
+  <script src="node_modules/babel-core/browser.js" charset="utf-8"></script>
+  <script src="compilers/traceur-compiler/bin/traceur.js"></script>
+  <script src="bundle.js"></script>
+  </body>
+</html>
