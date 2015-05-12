@@ -14,7 +14,10 @@
     </select>
   </div>
   <div class="wrapper">
-    <textarea id="input">var f = x => x;</textarea>
+    <textarea id="input">
+const x = 1;
+let x = 0;
+    </textarea>
     <textarea id="output"></textarea>
 
     <textarea id="console" readonly></textarea>
@@ -22,6 +25,6 @@
   </div>
   <script src="node_modules/babel-core/browser.js" charset="utf-8"></script>
   <script src="compilers/traceur-compiler/bin/traceur.js"></script>
-  <script src="bundle.js"></script>
+  <script src="dist/js/bundle.js"></script>
   </body>
 </html>

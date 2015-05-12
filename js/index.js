@@ -10,26 +10,25 @@ var CodeMirror = require('codemirror');
 
   var config = {
     mode : "javascript",
-    lineNumbers : true
+    lineNumbers : true,
+    gutters : ['CodeMirror-linenumbers','errors']
   };
 
   var outputEditor = CodeMirror.fromTextArea(outputTextArea, config);
   var inputEditor = CodeMirror.fromTextArea(inputTextArea, config);
 
-  var Babel = (function() {
-    return {
-      compile : function( input ) {
+  var Babel = {
+      compile( input ) {
         return babel.transform( input ).code;
       }
-    };
-  })();
+  };
 
   var Traceur = (function() {
-    this.compiler = new traceur.Compiler();
+    var compiler = new traceur.Compiler();
 
     return {
-      compile : function( input ) {
-        return this.compiler.compile( input );
+      compile( input ) {
+        return compiler.compile( input );
       }
     };
   })();
@@ -43,8 +42,22 @@ var CodeMirror = require('codemirror');
     output( transform( input() ) );
   };
 
+  function makeErrorWidget( error ) {
+    var marker = document.createElement('div');
+    var icon = marker.appendChild(document.createElement("span"));
+    marker.appendChild(document.createTextNode( error.message ));
+    icon.innerHTML = "!!";
+    icon.className = "lint-error-icon";
+    marker.className = "lint-error";
+    return marker;
+  }
+
   document.getElementById("transform").onclick = function() { 
-    transformer( inputEditor.getValue.bind(inputEditor), outputEditor.setValue.bind(outputEditor), Compilers[ compilerSelect.value ].compile ); 
+    try {
+      transformer( inputEditor.getValue.bind(inputEditor), outputEditor.setValue.bind(outputEditor), Compilers[ compilerSelect.value ].compile ); 
+    } catch( e ) {
+      inputEditor.addLineWidget( e.loc.line - 1, makeErrorWidget(e), { coverGutter : false, noHScroll : true } );
+    }
   };
 
   document.getElementById("run").onclick = function() {
