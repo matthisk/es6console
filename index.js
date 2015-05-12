@@ -6,6 +6,7 @@ var CodeMirror = require('codemirror');
   var outputTextArea = document.getElementById("output");
   var compilerSelect = document.getElementById("compiler");
   var fiddleConsole = document.getElementById("console");
+  var fiddleConsoleInput = document.getElementById("console-input");
 
   var config = {
     mode : "javascript",
@@ -50,6 +51,16 @@ var CodeMirror = require('codemirror');
     var code = outputEditor.getValue();
     var result = eval( code );
 
-    fiddleConsole.value += "> " + result.toString() + "\n";
+    fiddleConsole.value += result.toString() + "\n";
   };
+
+  fiddleConsoleInput.onkeyup = function( event ) {
+    if( event.keyCode === 13 ) {
+      var code = outputEditor.getValue();
+      var result = eval( code + fiddleConsoleInput.value );
+      fiddleConsole.value += result.toString() + "\n";
+      fiddleConsoleInput.value = "";
+    }
+  } 
+  
 })();
