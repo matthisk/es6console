@@ -1,28 +1,46 @@
 <html>
   <head>
     <title>Transformer Fiddle</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css"/> 
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="style/style.css"/>
   </head>
   <body>
   <div class="toolbar">
-    <button id="run">Run</button>
-    <button id="transform">Transform</button> 
-    <select id="compiler">
-      <option value="Babel">Babel JS</option>
-      <option value="Traceur">Traceur</option>
-    </select>
+    <div id="run" class="btn">
+      <i class="fa fa-play-circle-o"></i>
+      Run
+    </div>
+
+    <div id="transform" class="btn">
+      <i class="fa fa-code"></i>
+      Transform
+    </div>
+
+    <div class="btn">
+      <i class="fa fa-filter"></i>
+      <select id="compiler">
+        <option value="Babel">Babel JS</option>
+        <option value="Traceur">Traceur</option>
+      </select>
+    </div>
   </div>
   <div class="wrapper" style="display: none">
     <div class="editor-wrapper">
-      <textarea id="input">
-  let f = x => x;
-      </textarea>
-      <textarea id="output"></textarea>
+      <div class="editor">
+        <span class="caption">ECMAScript 6</span>
+        <textarea id="input">const x = 10;
+let x = 0;</textarea>
+      </div>
+      <div class="editor">
+        <span class="caption">ECMAScript 5</span>
+        <textarea id="output"></textarea>
+      </div>
     </div>
 
     <div id="console-output">
+      <span class="caption">Console</span>
     </div>
   </div>
   <div class="console">

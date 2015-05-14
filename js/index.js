@@ -7,43 +7,49 @@ var $ = document.querySelector.bind(document);
 var setup = function( wr ) {
   wr.style.height = `${window.innerHeight - 70}px`;
   wr.style.display = 'block';
+
+  window.onresize = () => setup(wr);
 };
 
 (function() {
   var wrapper = $('.wrapper');
   setup( wrapper );
 
-  var console = new Console();
+  var cnsl = new Console();
 
-  var inputTextArea = $("#input");
-  var outputTextArea = $("#output");
-  var compilerSelect = $("#compiler");
-  var runBtn = $("#run");
-  var transformBtn = $("#transform");
+  window.console.log = function( msg ) {
+    cnsl.writeLine( msg );
+  }
+
+  var inputTextArea = $("#input"),
+      outputTextArea = $("#output"),
+      compilerSelect = $("#compiler"),
+      runBtn = $("#run"),
+      transformBtn = $("#transform");
 
   var [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
-  var transformer = ( input, output, transform ) => output( transform( input() ) );
+  inputEditor.focus();
 
   var runCode = function( code ) {
     let result;
     try {
       result = eval( code );
     } catch( e ) {
-      return console.writeError( e );
+      return cnsl.writeError( e );
     }
-    console.writeLine( result );
+    cnsl.writeLine( result );
   }
 
   var transform = function() {
-    let input = inputEditor.getValue.bind(inputEditor);
-    let output = outputEditor.setValue.bind(outputEditor);
-    try {
-      transformer( input, output, Compilers[ compilerSelect.value ].compile ); 
-    } catch( e ) {
-      let widget = Editors.makeErrorWidget( e );
-      Editors.setErrorWidget( input, e.loc.line - 1, widget );
-    }
+    Editors.clearErrors( inputEditor );
+
+    let { errors, code } = Compilers[ compilerSelect.value ].compile( inputEditor.getValue() );
+
+    outputEditor.setValue( code );
+    Editors.setErrorMarkers( inputEditor, errors );
   }
+
+  inputEditor.on("change",transform);
 
   transformBtn.onclick = transform; 
 
@@ -51,9 +57,9 @@ var setup = function( wr ) {
     runCode( outputEditor.getValue() );
   };
 
-  console.on("run", function( input ) {
+  cnsl.on("run", function( input ) {
     runCode( outputEditor.getValue() + input );
-    console.clear();
+    cnsl.clear();
   }); 
   
 })();
