@@ -1,10 +1,11 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-var babelify = require('babelify');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var browserSync = require('browser-sync').create();
-var reload = browserSync.reload;
+		 gutil = require('gulp-util'),
+		 babelify = require('babelify'),
+		 browserify = require('browserify'),
+		 source = require('vinyl-source-stream'),
+		 browserSync = require('browser-sync').create(),
+		 reload = browserSync.reload,
+		 sass = require('gulp-sass');
 
 gulp.task('default',function() {
   var b = browserify({
@@ -22,15 +23,24 @@ gulp.task('default',function() {
       .pipe(reload({stream:true}));
 });
 
+gulp.task('sass',function() {
+  gulp.src('./sass/**/*.scss')
+    .pipe(sass()).on('error', sass.logError)
+    .pipe(gulp.dest('./style'))
+    .pipe(reload({stream:true}));
+});
+
 gulp.task('serve',function() {
   browserSync.init({
     server : './'
   });
 
   gulp.watch("js/**/*.js",['default']);
-  gulp.watch(["index.html","style/*.css"]).on("change",reload);
+  gulp.watch('sass/**/*.scss',['sass']);
+  gulp.watch(["index.html"]).on("change",reload);
 });
 
 gulp.task('watch',function() {
   gulp.watch("js/**/*.js", ['default']);
+  gulp.watch('sass/**/*.scss',['sass']);
 });
