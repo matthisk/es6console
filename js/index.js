@@ -1,79 +1,59 @@
-var jsMode = require('codemirror/mode/javascript/javascript')
-var CodeMirror = require('codemirror');
+var Compilers = require('./compilers');
+var Editors = require('./editors');
+var Console = require('./console');
+
+var $ = document.querySelector.bind(document);
+
+var setup = function( wr ) {
+  wr.style.height = `${window.innerHeight - 70}px`;
+  wr.style.display = 'block';
+};
 
 (function() {
-  var inputTextArea = document.getElementById("input");
-  var outputTextArea = document.getElementById("output");
-  var compilerSelect = document.getElementById("compiler");
-  var fiddleConsole = document.getElementById("console");
-  var fiddleConsoleInput = document.getElementById("console-input");
+  var wrapper = $('.wrapper');
+  setup( wrapper );
 
-  var config = {
-    mode : "javascript",
-    lineNumbers : true,
-    gutters : ['CodeMirror-linenumbers','errors']
-  };
+  var console = new Console();
 
-  var outputEditor = CodeMirror.fromTextArea(outputTextArea, config);
-  var inputEditor = CodeMirror.fromTextArea(inputTextArea, config);
+  var inputTextArea = $("#input");
+  var outputTextArea = $("#output");
+  var compilerSelect = $("#compiler");
+  var runBtn = $("#run");
+  var transformBtn = $("#transform");
 
-  var Babel = {
-      compile( input ) {
-        return babel.transform( input ).code;
-      }
-  };
+  var [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
+  var transformer = ( input, output, transform ) => output( transform( input() ) );
 
-  var Traceur = (function() {
-    var compiler = new traceur.Compiler();
-
-    return {
-      compile( input ) {
-        return compiler.compile( input );
-      }
-    };
-  })();
-
-  var Compilers = {
-    'Babel' : Babel,
-    'Traceur' : Traceur
-  };
-
-  var transformer = function( input, output, transform ) {
-    output( transform( input() ) );
-  };
-
-  function makeErrorWidget( error ) {
-    var marker = document.createElement('div');
-    var icon = marker.appendChild(document.createElement("span"));
-    marker.appendChild(document.createTextNode( error.message ));
-    icon.innerHTML = "!!";
-    icon.className = "lint-error-icon";
-    marker.className = "lint-error";
-    return marker;
+  var runCode = function( code ) {
+    let result;
+    try {
+      result = eval( code );
+    } catch( e ) {
+      return console.writeError( e );
+    }
+    console.writeLine( result );
   }
 
-  document.getElementById("transform").onclick = function() { 
+  var transform = function() {
+    let input = inputEditor.getValue.bind(inputEditor);
+    let output = outputEditor.setValue.bind(outputEditor);
     try {
-      transformer( inputEditor.getValue.bind(inputEditor), outputEditor.setValue.bind(outputEditor), Compilers[ compilerSelect.value ].compile ); 
+      transformer( input, output, Compilers[ compilerSelect.value ].compile ); 
     } catch( e ) {
-      inputEditor.addLineWidget( e.loc.line - 1, makeErrorWidget(e), { coverGutter : false, noHScroll : true } );
+      let widget = Editors.makeErrorWidget( e );
+      Editors.setErrorWidget( input, e.loc.line - 1, widget );
     }
+  }
+
+  transformBtn.onclick = transform; 
+
+  runBtn.onclick = function() {
+    runCode( outputEditor.getValue() );
   };
 
-  document.getElementById("run").onclick = function() {
-    var code = outputEditor.getValue();
-    var result = eval( code );
-
-    fiddleConsole.value += result.toString() + "\n";
-  };
-
-  fiddleConsoleInput.onkeyup = function( event ) {
-    if( event.keyCode === 13 ) {
-      var code = outputEditor.getValue();
-      var result = eval( code + fiddleConsoleInput.value );
-      fiddleConsole.value += result.toString() + "\n";
-      fiddleConsoleInput.value = "";
-    }
-  } 
+  console.on("run", function( input ) {
+    runCode( outputEditor.getValue() + input );
+    console.clear();
+  }); 
   
 })();

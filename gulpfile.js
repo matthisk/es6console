@@ -13,7 +13,9 @@ gulp.task('default',function() {
   });
 
   return b.transform(babelify)
+        .on('error', gutil.log)
       .bundle()
+        .on('error', gutil.log)
       .pipe(source('bundle.js'))
         .on('error', gutil.log)
       .pipe(gulp.dest('./dist/js/'))
@@ -26,7 +28,7 @@ gulp.task('serve',function() {
   });
 
   gulp.watch("js/**/*.js",['default']);
-  gulp.watch("index.html").on("change",reload);
+  gulp.watch(["index.html","style/*.css"]).on("change",reload);
 });
 
 gulp.task('watch',function() {

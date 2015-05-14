@@ -2,6 +2,7 @@
   <head>
     <title>Transformer Fiddle</title>
     <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css"/> 
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="style/style.css"/>
   </head>
   <body>
@@ -13,14 +14,19 @@
       <option value="Traceur">Traceur</option>
     </select>
   </div>
-  <div class="wrapper">
-    <textarea id="input">
-const x = 1;
-let x = 0;
-    </textarea>
-    <textarea id="output"></textarea>
+  <div class="wrapper" style="display: none">
+    <div class="editor-wrapper">
+      <textarea id="input">
+  let f = x => x;
+      </textarea>
+      <textarea id="output"></textarea>
+    </div>
 
-    <textarea id="console" readonly></textarea>
+    <div id="console-output">
+    </div>
+  </div>
+  <div class="console">
+    <i class="fa fa-angle-right"></i>
     <textarea id="console-input"></textarea>
   </div>
   <script src="node_modules/babel-core/browser.js" charset="utf-8"></script>
