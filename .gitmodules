@@ -1,6 +1,0 @@
-[submodule "compilers/traceur-compiler"]
-	path = static/compilers/traceur-compiler
-	url = git@github.com:google/traceur-compiler.git
-[submodule "compilers/TypeScript"]
-	path = static/compilers/TypeScript
-	url = https://github.com/Microsoft/TypeScript.git
