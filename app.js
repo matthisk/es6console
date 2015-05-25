@@ -16,7 +16,7 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
-    PORT = 3000,
+    PORT = process.env.PORT || 3000,
     pg = require('pg'),
     connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/es6console';
 
