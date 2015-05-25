@@ -1,14 +1,17 @@
 var gulp = require('gulp'),
     path = require('path'),
     gutil = require('gulp-util'),
-    browserSync = require('browser-sync').create(),
-    reload = browserSync.reload,
     sass = require('gulp-sass'),
-    nodemon = require('nodemon'),
     webpack = require('webpack'),
     babelLoader = require('babel-loader');
 
 var BUILD = process.env.ENVIRONMENT === 'production'; 
+
+if( ! BUILD ) {
+  var browserSync = require('browser-sync').create(),
+      reload = browserSync.reload,
+      nodemon = require('nodemon');
+}
 
 gulp.task('default',['serve'],function() {});
 
