@@ -8,7 +8,11 @@ var gulp = require('gulp'),
     webpack = require('webpack'),
     babelLoader = require('babel-loader');
 
+var BUILD = process.env.ENVIRONMENT === 'production'; 
+
 gulp.task('default',['serve'],function() {});
+
+gulp.task('build',['sass','webpack']);
 
 gulp.task('webpack',function(callback) {
   var init = false;
@@ -23,7 +27,7 @@ gulp.task('webpack',function(callback) {
     },
 
     watch : true,
-    devtool : '#source-map',
+    devtool : BUILD ? '' : '#source-map',
 
     resolve : { 
       alias : {
@@ -39,7 +43,10 @@ gulp.task('webpack',function(callback) {
       loaders : [
         { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/ }
       ]
-    }
+    },
+
+    plugins : BUILD ? [ new webpack.optimize.UglifyJsPlugin() ] : []
+
   }, function( err, stats ) {
     if(err) throw new gutil.PluginError('webpack',err);
     gutil.log("[webpack]",stats.toString({
@@ -53,7 +60,9 @@ gulp.task('webpack',function(callback) {
 
 gulp.task('sass',function() {
   gulp.src('./static/sass/**/*.scss')
-    .pipe(sass()).on('error', sass.logError)
+    .pipe(sass({
+      outputStyle : BUILD ? 'compressed' : 'nested'
+    })).on('error', sass.logError)
     .pipe(gulp.dest('./static/style'))
     .pipe(reload({stream:true}));
 });
