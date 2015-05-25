@@ -48,7 +48,7 @@ gulp.task('webpack',function(callback) {
       ]
     },
 
-    plugins : BUILD ? [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
+    plugins : BUILD ?[]:[]// [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
 
   }, function( err, stats ) {
     if(err) throw new gutil.PluginError('webpack',err);
