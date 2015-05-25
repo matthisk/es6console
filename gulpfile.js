@@ -15,7 +15,7 @@ if( ! BUILD ) {
 
 gulp.task('default',['serve'],function() {});
 
-gulp.task('build',['sass','webpack']);
+gulp.task('build',['sass','webpack'],function() { return gutil.log("Completed"); });
 
 gulp.task('webpack',function(callback) {
   var init = false;
@@ -29,7 +29,7 @@ gulp.task('webpack',function(callback) {
       filename : 'bundle.js'
     },
 
-    watch : true,
+    watch : !BUILD,
     devtool : BUILD ? '' : '#source-map',
 
     resolve : { 
@@ -68,7 +68,8 @@ gulp.task('sass',function() {
     })).on('error', sass.logError)
     .pipe(gulp.dest('./static/style'));
     
-    if(!BUILD) stream.pipe(reload({stream:true}));
+    if(!BUILD) return stream.pipe(reload({stream:true}));
+    else return stream;
 });
 
 gulp.task('serve',['nodemon','webpack'],function() {
