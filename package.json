@@ -36,7 +36,7 @@
     "gulp-sass": "^2.0.1",
     "gulp-util": "^3.0.4",
     "webpack": "^1.9.9",
-    "node-libs-browser": "^0.5.2",
+    "node-libs-browser": "^0.5.2"
   },
   "devDependencies": {
     "browser-sync": "^2.7.1",
