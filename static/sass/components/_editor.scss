@@ -1,0 +1,50 @@
+.CodeMirror {
+  height: auto !important;
+  line-height: $mono-line-height;
+  font-size: $mono-font-size;
+  font-family: $font-family-mono; 
+}
+
+.CodeMirror-gutters {
+  background-color: $divider-color;
+}
+
+.CodeMirror-linenumber {
+  font-family: $font-family-linenumber;
+  font-size: $linenumber-font-size;
+  color: #CCC;
+}
+
+.compiler-error-marker {
+  font-size: $mono-font-size ;
+  line-height: $mono-line-height;
+  color: $error-color;
+}
+
+.compiler-error-tooltip {
+  background-color: infobackground;
+  border: 1px solid $divider-color;
+  border-radius: 2px;
+  color: infotext;
+  /*font-family: monospace;*/
+  font-size: .85em;
+  overflow: hidden;
+  padding: 2px 5px;
+  position: fixed;
+  white-space: pre;
+  white-space: pre-wrap;
+  z-index: 100;
+  max-width: 600px;
+  opacity: 0;
+  transition: opacity .4s;
+  -moz-transition: opacity .4s;
+  -webkit-transition: opacity .4s;
+  -o-transition: opacity .4s;
+  -ms-transition: opacity .4s;
+}
+
+.compiler-error-mark {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
+  background-position: left bottom;
+  background-repeat: repeat-x;
+}

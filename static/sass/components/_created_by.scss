@@ -1,0 +1,10 @@
+.created-by {
+  overflow: auto;
+  color: $divider-ter-color;
+  background-color: $divider-color;
+  font-size: 9pt;
+  padding: 0 7px 3px 3px;
+  
+  .left { float: left; }
+  .right { float: right; }
+}

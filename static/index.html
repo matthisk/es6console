@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Transformer Fiddle</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/node_modules/codemirror/lib/codemirror.css"/> 
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/style/style.css"/>
+  </head>
+  <body>
+  <div class="toolbar">
+
+    <div id="save" class="btn">
+      <i class="fa fa-save"></i>
+      Save
+    </div>
+
+    <div id="run" class="btn">
+      <i class="fa fa-play-circle-o"></i>
+      Run
+    </div>
+
+    <div id="transform" class="btn">
+      <i class="fa fa-refresh"></i>
+      Transform
+    </div>
+
+    <div class="btn">
+      <i id="compiler-loader" class="fa fa-filter"></i>
+      <select id="compiler">
+        <option value="Babel">Babel JS</option>
+        <option value="Traceur">Traceur</option>
+        <option value="TypeScript">TypeScript</option>
+        <option value="Regenerator">Regenerator</option>
+      </select>
+    </div>
+  
+    <div class="btn btn-share" style="display:none">
+      <i class="fa fa-angle-down"></i>
+      Share
+    </div>  
+  </div>
+  <div class="wrapper" style="display: none">
+    <div class="editor-wrapper">
+      <div class="editor">
+        <span class="caption">ECMAScript 6</span>
+        <textarea id="input"></textarea>
+      </div>
+      <div class="editor">
+        <span class="caption">ECMAScript 5</span>
+        <textarea id="output"></textarea>
+      </div>
+    </div>
+    <div class="created-by">
+      <span class="left"><a href="https://github.com/matthisk/es6console" target="_blank">Code</a> @ Github</span>
+      <span class="right">
+        created by <a href="//twitter.com/tthisk" target="_blank" title="twitter account">@tthisk</a>
+      </span>  
+    </div>
+    <div id="console-output">
+      <span class="caption">Console</span>
+    </div>
+  </div>
+  <div class="console">
+    <textarea id="console-input"></textarea>
+  </div>
+
+  <div class="share-view" style="display: none">
+      <p>Share link</p>
+      <input class="share-view-url" type="text" onclick="this.focus();this.select();" />
+      <p>Embed</p>
+      <input class="share-view-embed" type="text" onclick="this.focus();this.select();"/>
+    <div class="share-view-tweet">
+        <i class="fa fa-lg fa-twitter"></i>
+        <span>
+          <a class="tweet" href="" target="_blank">      
+            Share on Twitter
+          </a>
+        </span>
+    </div>
+  </div>
+
+  <!--<script src="/node_modules/babel-core/browser.js" charset="utf-8"></script>-->
+  <script src="/dist/js/bundle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+#console-output, #console-input {
+  font-family: $font-family-mono; 
+  font-size: $mono-font-size;
+  width: 100%;
+  line-height: $mono-line-height;
+}
+
+#console-output {
+  border-top: 1px solid $divider-sec-color;
+  position: relative;
+  height: 30%;
+  overflow-y: scroll;
+  padding: 5px 0;
+  box-sizing: border-box;
+}
+
+.console {
+  border-top: 1px solid $divider-sec-color;
+  overflow: auto;
+  width: 100%;
+  position:relative;
+}
+
+.console:before {
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  color: $info-color;
+  font-family: 'FontAwesome';
+  content: "\f105";
+}
+
+#console-input {
+  width: 100%;
+  padding: 5px 0 5px 15px;
+  border: none;
+  height: 30px;
+}
+
+#console-input:focus { outline: none; }
+
+#console-output i {
+  padding: 3px 10px 0 0;
+  float: left;
+  color: #aaa;
+}
+
+#console-output p {
+  padding: 0; margin: 0;
+}
+
+#console-output .line {
+  height: $mono-line-height;
+  padding: 0 15px;
+  position: relative;
+
+  &.error { color: $error-color; }
+
+  &:before {
+    position: absolute;
+    top: 0px; left: 4px;
+    color: #aaa;
+    font-family: 'FontAwesome';
+    content: "\f104";
+  }
+}
