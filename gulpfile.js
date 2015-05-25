@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     webpack = require('webpack'),
     babelLoader = require('babel-loader');
 
-var BUILD = process.env.ENVIRONMENT === 'production'; 
+var BUILD = true; //process.env.ENVIRONMENT === 'production'; 
 
 if( ! BUILD ) {
   var browserSync = require('browser-sync').create(),
@@ -56,18 +56,19 @@ gulp.task('webpack',function(callback) {
       cached: false,
       colors: true
     }));
-    reload();
+    if(!BUILD) reload();
     if(!init) { callback(); init = true; }
   });
 });
 
 gulp.task('sass',function() {
-  gulp.src('./static/sass/**/*.scss')
+  var stream = gulp.src('./static/sass/**/*.scss')
     .pipe(sass({
       outputStyle : BUILD ? 'compressed' : 'nested'
     })).on('error', sass.logError)
-    .pipe(gulp.dest('./static/style'))
-    .pipe(reload({stream:true}));
+    .pipe(gulp.dest('./static/style'));
+    
+    if(!BUILD) stream.pipe(reload({stream:true}));
 });
 
 gulp.task('serve',['nodemon','webpack'],function() {
