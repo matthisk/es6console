@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     webpack = require('webpack'),
     babelLoader = require('babel-loader');
 
-var BUILD = process.env.ENVIRONMENT === 'production'; 
+var BUILD = true;// process.env.ENVIRONMENT === 'production'; 
 
 if( ! BUILD ) {
   var browserSync = require('browser-sync').create(),
