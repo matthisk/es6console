@@ -47,8 +47,8 @@ gulp.task('webpack',function(callback) {
         { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/ }
       ]
     },
-                          // Disable uglify because of excessive memore usage
-    plugins : BUILD ?[]:[]// [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
+
+    plugins : BUILD ? [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
 
   }, function( err, stats ) {
     if(err) throw new gutil.PluginError('webpack',err);
