@@ -1,4 +1,4 @@
-import Q from 'Q';
+import Q from 'q';
 
 function encodeBody( data ) {
   var body = '';
