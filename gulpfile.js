@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     webpack = require('webpack'),
     babelLoader = require('babel-loader');
 
-var BUILD = true; //process.env.ENVIRONMENT === 'production'; 
+var BUILD = process.env.ENVIRONMENT === 'production'; 
 
 if( ! BUILD ) {
   var browserSync = require('browser-sync').create(),
@@ -47,7 +47,7 @@ gulp.task('webpack',function(callback) {
         { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/ }
       ]
     },
-
+                          // Disable uglify because of excessive memore usage
     plugins : BUILD ?[]:[]// [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
 
   }, function( err, stats ) {
