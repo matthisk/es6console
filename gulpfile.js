@@ -7,6 +7,8 @@ var gulp = require('gulp'),
 
 var BUILD = true;// process.env.ENVIRONMENT === 'production'; 
 
+console.log("ENV VARIABLES",process.env);
+
 if( ! BUILD ) {
   var browserSync = require('browser-sync').create(),
       reload = browserSync.reload,

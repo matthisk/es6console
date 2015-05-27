@@ -44,6 +44,11 @@ app.get(/^\/snippets\/\w+$/, function(req, res) {
     var code = '';
 
     pg.connect(connectionString, function(err, client, done) {
+      if(err) {
+        console.error('Error fetching client from pool', err);
+        return res.json({ error: 'Error with database connection' });
+      }
+
       var query = client.query('SELECT code FROM snippets WHERE id = $1',[id]);
 
       query.on('row',function(row) { code = row.code; });
