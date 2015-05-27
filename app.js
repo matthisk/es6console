@@ -43,7 +43,9 @@ app.get(/^\/snippets\/\w+$/, function(req, res) {
   if( id ) {
     var code = '';
 
+    console.log("connection string:",connectionString);
     pg.connect(connectionString, function(err, client, done) {
+      console.log("error",err);
       if(err) {
         console.error('Error fetching client from pool', err);
         return res.json({ error: 'Error with database connection' });
