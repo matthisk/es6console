@@ -43,9 +43,7 @@ app.get(/^\/snippets\/\w+$/, function(req, res) {
   if( id ) {
     var code = '';
 
-    console.log("connection string:",connectionString);
     pg.connect(connectionString, function(err, client, done) {
-      console.log("error",err);
       if(err) {
         console.error('Error fetching client from pool', err);
         return res.json({ error: 'Error with database connection' });
@@ -76,6 +74,11 @@ app.post('/save',function(req,res) {
     var code = req.body.code;
     
     pg.connect(connectionString, function(err, client, done) {
+      if(err) {
+        console.error('Error fetching client from pool', err);
+        return res.json({ saved: false, error: 'Error with database connection' });
+      }
+
       var query = client.query('INSERT INTO snippets(id,code) values($1,$2)',[id,code]);
 
       query.on('end',function() {
