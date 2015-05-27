@@ -17,7 +17,7 @@ if( ! BUILD ) {
 
 gulp.task('default',['serve'],function() {});
 
-gulp.task('build',['sass','webpack','compress'],function() { return gutil.log("Completed"); });
+gulp.task('build',['sass','webpack','compress'],function() { });
 
 gulp.task('compress',function() {
   return gulp.src(['node_modules/babel-core/browser.js','node_modules/traceur/bin/traceur.js'])
