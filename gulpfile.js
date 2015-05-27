@@ -3,7 +3,9 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     sass = require('gulp-sass'),
     webpack = require('webpack'),
-    babelLoader = require('babel-loader');
+    babelLoader = require('babel-loader'),
+    fs = require('fs'),
+    uglify = require('gulp-uglify');
 
 var BUILD = process.env.NODE_ENV === 'production'; 
 
@@ -15,7 +17,13 @@ if( ! BUILD ) {
 
 gulp.task('default',['serve'],function() {});
 
-gulp.task('build',['sass','webpack'],function() { return gutil.log("Completed"); });
+gulp.task('build',['sass','webpack','compress'],function() { return gutil.log("Completed"); });
+
+gulp.task('compress',function() {
+  return gulp.src(['node_modules/babel-core/browser.js','node_modules/traceur/bin/traceur.js'])
+    .pipe(uglify())
+    .pipe(gulp.dest('static/dist/compilers'));
+});
 
 gulp.task('webpack',function(callback) {
   var init = false;
@@ -56,14 +64,18 @@ gulp.task('webpack',function(callback) {
     var jsonStats = stats.toJson();
     if(jsonStats.errors.length > 0) 
       jsonStats.errors.forEach(function(error) {
-        gutil.log(gutil.colors.magenta('webpack'),gutil.colors.bold.red('error'),error);
+        gutil.log(gutil.colors.cyan('webpack'),gutil.colors.bold.red('error'),error);
       });
-    if(jsonStats.warnings.length > 0) 
+    if(!BUILD && jsonStats.warnings.length > 0) 
       jsonStats.warnings.forEach(function(warning) { 
         gutil.log(gutil.colors.magenta('webpack'),gutil.colors.bold.yellow('warning'),warning);
       });
 
-    if(!BUILD) reload();
+    if(!BUILD) { 
+      fs.writeFile("./webpack-stats.json", JSON.stringify(jsonStats), function(err) { if(err) gutil.log(gutil.colors.red('error saving webpack stats'),err);
+      });
+      reload();
+    }
     if(!init) { callback(); init = true; }
   });
 });

@@ -12,7 +12,7 @@ class Base {
 
 class Babel extends Base {
     initCompiler( callback ) {
-      $script(['/node_modules/babel-core/browser.js'],() => {
+      $script(['/dist/compilers/browser.js'],() => {
         this.compiler = babel;
         callback();
       });
@@ -42,7 +42,7 @@ class Traceur extends Base {
   }
 
   initCompiler( callback ) {
-    $script(['../../node_modules/traceur/bin/traceur.js'],() => {
+    $script(['/dist/compilers/traceur.js'],() => {
       this.compiler = new traceur.Compiler({
         modules: 'inline'
       });
