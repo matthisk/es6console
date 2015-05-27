@@ -52,10 +52,17 @@ gulp.task('webpack',function(callback) {
 
   }, function( err, stats ) {
     if(err) throw new gutil.PluginError('webpack',err);
-    gutil.log("[webpack]",stats.toString({
-      cached: false,
-      colors: true
-    }));
+
+    var jsonStats = stats.toJson();
+    if(jsonStats.errors.length > 0) 
+      jsonStats.errors.forEach(function(error) {
+        gutil.log(gutil.colors.magenta('webpack'),gutil.colors.bold.red('error'),error);
+      });
+    if(jsonStats.warnings.length > 0) 
+      jsonStats.warnings.forEach(function(warning) { 
+        gutil.log(gutil.colors.magenta('webpack'),gutil.colors.bold.yellow('warning'),warning);
+      });
+
     if(!BUILD) reload();
     if(!init) { callback(); init = true; }
   });
