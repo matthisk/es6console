@@ -72,7 +72,8 @@ app.post('/save',function(req,res) {
 
   if(req.body) {
     var code = req.body.code;
-    
+   
+    console.log("database url in use:",DATABASE_URL); 
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
         console.error('Error fetching client from pool', err);
