@@ -98,18 +98,14 @@ function resize( wr ) {
 
   function showShare() {
     let link = shareView.querySelector('.share-view-url');
-    let embed = shareView.querySelector('.share-view-embed');
     let twitter = shareView.querySelector('.tweet');
     let shareLink = window.location.toString();
-    let embedLink = 'TODO';
     let tweet = `Check out my ES6 code: ${ shareLink }`;
 
     twitter.href = `//twitter.com/home?status=${encodeURIComponent( tweet )}`;
     link.value = shareLink;
-    embed.value = embedLink;
 
-    let d = shareView.style.display;
-    shareView.style.display = d === 'none' ? '' : 'none';
+    shareView.classList.toggle('visible');
   }
 
   function loadCompiler(name) {
@@ -132,5 +128,6 @@ function resize( wr ) {
 
     cnsl.on('run',run);
     inputEditor.on('change',transform);
+
   }
 })();

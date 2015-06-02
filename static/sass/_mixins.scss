@@ -1,7 +1,7 @@
 @mixin box-shadow($top, $left, $blur, $spread, $color, $inset: "") {
-  -webkit-box-shadow: $top $left $blur $spread $color; 
-  -moz-box-shadow: $top $left $blur $spread $color; 
-  box-shadow: $top $left $blur $spread $color;
+  -webkit-box-shadow: $top $left $blur $spread $color $inset; 
+  -moz-box-shadow: $top $left $blur $spread $color $inset; 
+  box-shadow: $top $left $blur $spread $color $inset;
 }
 
 @mixin fade-in-out( $time: 0.5s ) {

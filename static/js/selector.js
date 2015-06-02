@@ -21,6 +21,10 @@ export default class CompilerSelect extends EventEmitter {
     this.el.classList.toggle('visible');
   }
 
+  hide() {
+    this.el.classList.remove('visible');
+  }
+
   select(e) {
     this.trigger("load",e.target.dataset.value);
     this.toggle();
