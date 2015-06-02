@@ -1,4 +1,4 @@
 # es6console
-ECMAScript Transformer Fiddle (try out es6 to 5 transformers)
+Play around  with ECMAScript (6 to 5) transformers, with an interactive console.
 
 http://es6console.com
