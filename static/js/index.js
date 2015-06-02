@@ -2,6 +2,7 @@ import Compilers from './compilers';
 import Editors from './editors';
 import Console from './console';
 import SandBox from './sandbox';
+import CompilerSelect from './selector';
 import ajax from './util/Ajax';
 
 var $ = document.querySelector.bind(document);
@@ -18,7 +19,8 @@ function resize( wr ) {
   var wrapper = $('.wrapper'),
       inputTextArea = $("#input"),
       outputTextArea = $("#output"),
-      compilerSelect = $("#compiler"),
+      compilerSelectBtn = $("#compiler-select"),
+      compilerSelect = $('.transformers'),
       compilerLoader = $("#compiler-loader"),
       runBtn = $("#run"),
       saveBtn = $("#save"),
@@ -28,7 +30,9 @@ function resize( wr ) {
 
   var cnsl = new Console(),
       sandbox = new SandBox( cnsl ),
-      inputEditor, outputEditor;
+      inputEditor, outputEditor,
+      compiler = 'Babel',
+      selector = new CompilerSelect({ btn: compilerSelectBtn, el: compilerSelect });
 
   (function init() {
     resize( wrapper );
@@ -66,7 +70,7 @@ function resize( wr ) {
   function transform() {
     Editors.clearErrors( inputEditor );
 
-    let { errors = [], code = '' } = Compilers[ compilerSelect.value ].compile( inputEditor.getValue() );
+    let { errors = [], code = '' } = Compilers[ compiler ].compile( inputEditor.getValue() );
 
     outputEditor.setValue( code );
     Editors.setErrorMarkers( inputEditor, errors );
@@ -109,9 +113,13 @@ function resize( wr ) {
   }
 
   function loadCompiler(name) {
+    compiler = name;
     let oldClasses = compilerLoader.className;
     compilerLoader.className = 'fa fa-spinner fa-pulse';
-    Compilers[name].initCompiler(() => compilerLoader.className = oldClasses);
+    Compilers[name].initCompiler(() => {
+      compilerLoader.className = oldClasses;
+      transform(); 
+    });
   }
 
   function bindEventHandlers() {
@@ -119,7 +127,8 @@ function resize( wr ) {
     runBtn.addEventListener('click',() => run());
     saveBtn.addEventListener('click', save);
     shareBtn.addEventListener('click',showShare);
-    compilerSelect.addEventListener('change',(e) => loadCompiler( e.target.value ));
+
+    selector.on('load',loadCompiler);
 
     cnsl.on('run',run);
     inputEditor.on('change',transform);

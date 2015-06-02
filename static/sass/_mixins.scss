@@ -1,0 +1,18 @@
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset: "") {
+  -webkit-box-shadow: $top $left $blur $spread $color; 
+  -moz-box-shadow: $top $left $blur $spread $color; 
+  box-shadow: $top $left $blur $spread $color;
+}
+
+@mixin fade-in-out( $time: 0.5s ) {
+  visibility: hidden;
+  opacity: 0;
+  //transition: opacity $time linear;
+  transition: visibility 0s linear $time, opacity $time linear;
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+  }
+}

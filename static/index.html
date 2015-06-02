@@ -33,14 +33,9 @@
       Transform
     </div>
 
-    <div class="btn">
-      <i id="compiler-loader" class="fa fa-filter"></i>
-      <select id="compiler">
-        <option value="Babel">Babel JS</option>
-        <option value="Traceur">Traceur</option>
-        <option value="TypeScript">TypeScript</option>
-        <option value="Regenerator">Regenerator</option>
-      </select>
+    <div id="compiler-select" class="btn">
+      Transformer
+      <i id="compiler-loader" class="fa fa-angle-down"></i>
     </div>
   
     <div class="btn btn-share" style="display:none">
@@ -71,6 +66,15 @@
   </div>
   <div class="console">
     <textarea id="console-input"></textarea>
+  </div>
+
+  <div class="transformers">
+    <ul>
+      <li data-value="Babel">Babel JS <a href="http://babeljs.io" target="_blank"><i class="fa fa-external-link"></i></a></li>
+      <li data-value="Traceur">Traceur <a href="https://github.com/google/traceur-compiler" target="_blank"><i class="fa fa-external-link"></i></a></li>
+      <li data-value="TypeScript">Typescript <a href="http://www.typescriptlang.org/" target="_blank"><i class="fa fa-external-link"></i></a></li>
+      <li data-value="Regenerator">Regenerator <a href="https://github.com/facebook/regenerator" target="_blank"><i class="fa fa-external-link"></i></a></li>
+    </ul>
   </div>
 
   <div class="share-view" style="display: none">

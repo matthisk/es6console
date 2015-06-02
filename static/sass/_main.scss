@@ -24,7 +24,7 @@ i { color: $icon-color; }
   position: relative; z-index: 14;
   width: 100%; height: $toolbar-height;
   font-size: 13px;
-  line-height: $toolbar-height;
+  line-height: 13px;
   background-color: $primary-color;
   overflow: auto;
   color: white;
@@ -42,7 +42,7 @@ i { color: $icon-color; }
 
 .toolbar .btn {
   background-color: $secondary-color;
-  padding: 0 10px; margin-right: 2px;
+  padding: 14px 10px; margin-right: 2px;
   float: left;
   cursor: pointer;
 }
