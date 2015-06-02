@@ -7,13 +7,6 @@ import ajax from './util/Ajax';
 
 var $ = document.querySelector.bind(document);
 
-function resize( wr ) {
-  wr.style.height = `${window.innerHeight - 70}px`;
-  wr.style.display = 'block';
-
-  window.onresize = () => resize(wr);
-}
-
 (function() {
   // DOM Elements
   var wrapper = $('.wrapper'),
@@ -35,7 +28,7 @@ function resize( wr ) {
       selector = new CompilerSelect({ btn: compilerSelectBtn, el: compilerSelect });
 
   (function init() {
-    resize( wrapper );
+    sizeWindow( wrapper );
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
     router( /^\/(\w+)\/$/, snippetRoute );
@@ -44,6 +37,17 @@ function resize( wr ) {
     bindEventHandlers();
     inputEditor.focus();
   })();
+
+  function sizeWindow( wr ) {
+    var height = window.innerHeight - 85;
+    
+    wr.style.display = 'block';
+    wr.style.height = `${height+15}px`;
+    wrapper.querySelector('.editor-wrapper').style.height = `${Math.round(0.7 * height)}px`;
+    wrapper.querySelector('#console-output').style.height = `${Math.round(0.3 * height)}px`;   
+
+    window.onresize = () => sizeWindow(wr);
+  }
 
   function router( pattern, route ) {
     var match = window.location.pathname.match( pattern );
