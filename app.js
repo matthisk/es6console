@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+require('newrelic');
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
