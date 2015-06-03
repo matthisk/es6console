@@ -2,10 +2,27 @@ import Compilers from './compilers';
 import Editors from './editors';
 import Console from './console';
 import SandBox from './sandbox';
-import CompilerSelect from './selector';
+import Selector from './selector';
 import ajax from './util/Ajax';
 
-var $ = document.querySelector.bind(document);
+function compilerItemExtra(url) {
+  var node = document.createElement('a');
+  node.setAttribute('href',url);
+  node.setAttribute('target','_blank');
+
+  var i = document.createElement('i');
+  i.setAttribute('class','fa fa-external-link');
+
+  node.appendChild(i);
+  return node;
+}
+
+var $ = document.querySelector.bind(document),
+    compilerItems = [
+          {item:'Babel JS',value:'Babel',extra:compilerItemExtra('http://babeljs.io')},
+          {item:'Traceur',value:'Traceur',extra:compilerItemExtra('https://github.com/google/traceur-compiler')},
+          {item:'TypeScript',value:'TypeScript',extra:compilerItemExtra('http://www.typescriptlang.org/')},
+          {item:'Regenerator',value:'Regenerator',extra:compilerItemExtra('https://github.com/facebook/regenerator')}];
 
 (function() {
   // DOM Elements
@@ -25,7 +42,7 @@ var $ = document.querySelector.bind(document);
       sandbox = new SandBox( cnsl ),
       inputEditor, outputEditor,
       compiler = 'Babel',
-      selector = new CompilerSelect({ btn: compilerSelectBtn, el: compilerSelect });
+      selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
 
   (function init() {
     sizeWindow( wrapper );
@@ -34,6 +51,7 @@ var $ = document.querySelector.bind(document);
     router( /^\/(\w+)\/$/, snippetRoute );
 
     loadCompiler('Babel');
+    loadExamples();
     bindEventHandlers();
     inputEditor.focus();
   })();
@@ -122,13 +140,45 @@ var $ = document.querySelector.bind(document);
     });
   }
 
+  function loadExample(name) {
+    var p = ajax({
+      type: 'GET',
+      json: false,
+      url: '/examples/' + name
+    });
+
+    return p.then(data => {
+      inputEditor.setValue(data);
+    });
+  }
+
+  function loadExamples() {
+    var p = ajax({
+      type: 'GET',
+      url: '/examples/'
+    });
+
+    return p.then(data => {
+      var examples = [],
+          btn = $('#examples');
+
+      for( let ex of data.examples ) {
+        examples.push({item:ex,value:ex});
+      }
+
+      var selector = new Selector({ btn, items : examples });
+
+      selector.on('select',loadExample);
+    });
+  }
+
   function bindEventHandlers() {
     transformBtn.addEventListener('click',transform)
     runBtn.addEventListener('click',() => run());
     saveBtn.addEventListener('click', save);
     shareBtn.addEventListener('click',showShare);
 
-    selector.on('load',loadCompiler);
+    selector.on('select',loadCompiler);
 
     cnsl.on('run',run);
     inputEditor.on('change',transform);

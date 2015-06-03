@@ -10,7 +10,7 @@ function encodeBody( data ) {
   return body.slice(1, body.length);
 }
 
-export default function ajax({ type, url, data }) {
+export default function ajax({ type, url, data, json = true }) {
   var deferred = Q.defer(),
       req = new XMLHttpRequest(),
       body = encodeBody( data );
@@ -23,7 +23,8 @@ export default function ajax({ type, url, data }) {
   req.onreadystatechange = () => {
     if( req.readyState == 4 ) {
       if (req.status == 200 ) {
-        deferred.resolve( JSON.parse( req.responseText ) );
+        if( json ) deferred.resolve( JSON.parse( req.responseText ) );
+        else deferred.resolve( req.responseText );
       } else {
         deferred.reject(new Error(req.responseText));
       }

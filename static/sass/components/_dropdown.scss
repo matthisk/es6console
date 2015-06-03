@@ -1,4 +1,4 @@
-.transformers {
+.dropdown {
   position: absolute;
   top: $toolbar-height;
   width: 200px;
@@ -10,7 +10,7 @@
   @include fade-in-out(0.1s);
 }
 
-.transformers ul { 
+.dropdown ul { 
   list-style-type: none;
   color: white;
   padding: 0; margin: 5px;
@@ -18,7 +18,7 @@
   line-height: 13px;
 }
 
-.transformers li {
+.dropdown li {
   box-sizing: border-box;
   padding: 8px 5px;
   cursor: pointer;
@@ -27,7 +27,7 @@
   &:last-child { border: none; }
 }
 
-.transformers i {
+.dropdown i {
   float: right;
   color: white;
   cursor: pointer;

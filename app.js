@@ -13,8 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-require('newrelic');
+if( process.env.NODE_ENV === 'production' ) require('newrelic');
 var express = require('express'),
+    fs = require('fs'),
     bodyParser = require('body-parser'),
     app = express(),
     PORT = process.env.PORT || 3000,
@@ -28,6 +29,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/static/index.html');
+});
+
+app.get(/^\/examples\/$/, function(req, res) {
+  fs.readdir(__dirname + '/static/examples',function(err,files) {
+    if(err) return res.json({ error: 'unable to locate examples' });
+    
+    return res.json({ examples: files }); 
+  });
 });
 
 app.get(/^\/\w+\/$/, function(req, res) {
