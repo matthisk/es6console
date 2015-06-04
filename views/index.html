@@ -10,6 +10,8 @@
     <meta name="author" content="ES6Console" />
     <meta name="copyright" content="share alike" />
 
+    {{ newrelic.getBrowserTimingHeader() }}
+
     <link rel="shortcut icon" href="/favicon.ico" />
     <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/node_modules/codemirror/lib/codemirror.css"/> 
@@ -44,7 +46,7 @@
       <i class="fa fa-angle-down"></i>
     </div>
   
-    <div class="btn btn-share" style="display:none">
+    <div class="btn btn-share" style="display: {% if snippet %}block{% else %}none{% endif %};">
       <i class="fa fa-angle-down"></i>
       Share
     </div>  
@@ -53,7 +55,7 @@
     <div class="editor-wrapper">
       <div class="editor">
         <span class="caption">ECMAScript 6</span>
-        <textarea id="input"></textarea>
+        <textarea id="input">{{ snippet }}</textarea>
       </div>
       <div class="editor">
         <span class="caption">ECMAScript 5</span>

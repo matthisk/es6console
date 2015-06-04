@@ -48,8 +48,6 @@ var $ = document.querySelector.bind(document),
     sizeWindow( wrapper );
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
-    router( /^\/(\w+)\/$/, snippetRoute );
-
     loadCompiler('Babel');
     loadExamples();
     bindEventHandlers();
@@ -73,11 +71,6 @@ var $ = document.querySelector.bind(document),
     if( match !== null ) {
       route( ...match );
     }
-  }
-
-  function snippetRoute( path, id ) {
-    shareBtn.style.display = 'block';
-    return fetchCodeFor( id );
   }
 
   function fetchCodeFor( id ) {

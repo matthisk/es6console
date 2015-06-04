@@ -98,7 +98,7 @@ gulp.task('serve',['nodemon','webpack'],function() {
   });
 
   gulp.watch('static/sass/**/*.scss',['sass']);
-  gulp.watch(["static/index.html"]).on("change",reload);
+  gulp.watch(["views/*.html"]).on("change",reload);
 });
 
 gulp.task('nodemon',function(cb) {
@@ -106,11 +106,13 @@ gulp.task('nodemon',function(cb) {
 
   nodemon({
     script: 'app.js',
-    watch: ['app.js']
+    watch: ['app.js','api.js']
   }).on('start', function() { 
     if(init) cb(); // Only call cb once when server is started initially.
     setTimeout(function() { reload(); },1000);
     init = false; 
+  }).on('crash', function() {
+    gutil.log('Nodejs application crashed');
   });
 });
 

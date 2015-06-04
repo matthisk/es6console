@@ -38,6 +38,7 @@
     "q": "^1.4.1",
     "regenerator": "^0.8.26",
     "scriptjs": "^2.5.7",
+    "swig": "^1.4.2",
     "traceur": "0.0.89",
     "typescript": "^1.5.0-beta",
     "webpack": "^1.9.9"
