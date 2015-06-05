@@ -14,6 +14,7 @@ function saveSnippet(req) {
       if(err) {
         console.error('Error fetching client from pool', err);
         deferred.reject('Error with database connection');
+        return
       }
 
       var query = client.query('INSERT INTO snippets(id,code) values($1,$2)',[id,code]);
@@ -22,8 +23,6 @@ function saveSnippet(req) {
         client.end();
         deferred.resolve({ saved: true, id: id });
       });
-
-      if(err) console.error(err);
     });
   } else {
     deferred.reject('Unable to parse body');
@@ -43,6 +42,7 @@ function getSnippet(req) {
       if(err) {
         console.error('Error fetching client from pool', err);
         deferred.reject('Error with database connection');
+        return;
       }
 
       var query = client.query('SELECT code FROM snippets WHERE id = $1',[id]);
