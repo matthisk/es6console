@@ -43,7 +43,7 @@
 
     <div id="examples" class="btn">
       Examples
-      <i class="fa fa-angle-down"></i>
+      <i id="example-loader" class="fa fa-angle-down"></i>
     </div>
   
     <div class="btn btn-share" style="display: {% if snippet %}block{% else %}none{% endif %};">
@@ -72,7 +72,7 @@
       <span class="caption">Console</span>
     </div>
   </div>
-  <div class="console">
+  <div class="console" style="display: none;">
     <textarea id="console-input"></textarea>
   </div>
 

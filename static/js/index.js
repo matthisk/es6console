@@ -45,6 +45,7 @@ var $ = document.querySelector.bind(document),
       selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
 
   (function init() {
+    $('.console').style.display = 'block';
     sizeWindow( wrapper );
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
@@ -65,23 +66,6 @@ var $ = document.querySelector.bind(document),
     window.onresize = () => sizeWindow(wr);
   }
 
-  function router( pattern, route ) {
-    var match = window.location.pathname.match( pattern );
-    
-    if( match !== null ) {
-      route( ...match );
-    }
-  }
-
-  function fetchCodeFor( id ) {
-    var p = ajax({
-      type: 'GET',
-      url: `/snippets/${id}`
-    });
-
-    return p.then( res => inputEditor.setValue(res.code) );
-  }
-
   function transform() {
     Editors.clearErrors( inputEditor );
 
@@ -92,6 +76,7 @@ var $ = document.querySelector.bind(document),
   }
 
   function save() {
+    debugger;
     var p = ajax({
       type : 'POST',
       url : '/save',
@@ -124,16 +109,26 @@ var $ = document.querySelector.bind(document),
   }
 
   function loadCompiler(name) {
+    let done = spinner(compilerLoader);
     compiler = name;
-    let oldClasses = compilerLoader.className;
-    compilerLoader.className = 'fa fa-spinner fa-pulse';
+    
     Compilers[name].initCompiler(() => {
-      compilerLoader.className = oldClasses;
+      done();
       transform(); 
     });
   }
 
+  function spinner(el) {
+    let oldClasses = el.className;
+    el.className = 'fa fa-spinner fa-pulse';
+   
+    return function() {
+      el.className = oldClasses;
+    }; 
+  }
+
   function loadExample(name) {
+    let done = spinner($('#example-loader'));
     var p = ajax({
       type: 'GET',
       json: false,
@@ -141,6 +136,7 @@ var $ = document.querySelector.bind(document),
     });
 
     return p.then(data => {
+      done();
       inputEditor.setValue(data);
     });
   }
@@ -156,7 +152,7 @@ var $ = document.querySelector.bind(document),
           btn = $('#examples');
 
       for( let ex of data.examples ) {
-        examples.push({item:ex,value:ex});
+        examples.push({item:ex.slice(0,-3),value:ex});
       }
 
       var selector = new Selector({ btn, items : examples });
@@ -175,6 +171,5 @@ var $ = document.querySelector.bind(document),
 
     cnsl.on('run',run);
     inputEditor.on('change',transform);
-
   }
 })();

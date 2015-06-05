@@ -3,6 +3,7 @@
   font-size: $mono-font-size;
   width: 100%;
   line-height: $mono-line-height;
+  background-color: white;
 }
 
 #console-output {
@@ -12,6 +13,10 @@
   overflow-y: scroll;
   padding: 5px 0;
   box-sizing: border-box;
+
+  .log {
+    color: $divider-sec-color;
+  }
 }
 
 .console {
@@ -50,7 +55,6 @@
 }
 
 #console-output .line {
-  height: $mono-line-height;
   padding: 0 15px;
   position: relative;
 

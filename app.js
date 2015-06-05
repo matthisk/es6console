@@ -29,6 +29,11 @@ app.engine('html', swig.renderFile);
 app.set('view engine','html');
 app.set('views',__dirname + '/views');
 
+if( process.env.NODE_ENV !== 'production' ) {
+  app.set('view cache', false);
+  swig.setDefaults({ cache: false });
+}
+
 app.use('/node_modules', express.static('node_modules'));
 app.use(express.static('static'));
 app.use(bodyParser.json());

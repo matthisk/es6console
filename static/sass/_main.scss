@@ -1,6 +1,9 @@
 html { height: 100%; }
-body { overflow: hidden; margin: 0; padding: 0; 
-  font-family: $font-family; }      
+body { 
+  overflow: hidden; margin: 0; padding: 0; 
+  font-family: $font-family; 
+  background: url('/img/background.jpg') no-repeat center;
+}      
 
 textarea { resize: none; }
 

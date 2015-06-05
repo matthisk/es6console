@@ -1,3 +1,8 @@
+var runtimeScripts = [
+  '/node_modules/babel-core/browser-polyfill.js',
+  '/node_modules/traceur/bin/traceur-runtime.js'
+];
+
 export default class SandBox {
   constructor( cnsl ) {
     this.cnsl = cnsl;
@@ -7,6 +12,13 @@ export default class SandBox {
     // Overwrite the console log function of the sandbox to write results
     // to our own console.
     this.frame.contentWindow.console.log = this.log.bind(this);
+
+    for( script of runtimeScripts ) {
+      var script = this.frame.contentDocument.createElement('script');
+      script.type = 'text/javascript';
+      script.src = script;
+      this.frame.contentDocument.body.appendChild(script);
+    }
   }
 
   runCode( code ) {
@@ -40,6 +52,6 @@ export default class SandBox {
       });
     }
 
-    this.cnsl.writeLine( `[log] ${res}` ); 
+    this.cnsl.writeLine( `<span class="log">[log]</span> ${res}` ); 
   }
 }
