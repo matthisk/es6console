@@ -1,12 +1,7 @@
-class C {}
-var c1 = C;
-{
-  class C {}
-  var c2 = C;
-}
+// The classes syntax is syntactic sugar for prototypal inheritance
+// it now gives JavaScript a unified way to define inheritance
+// including a super object to represent a classes parent
 
-
-class Name { };
 class Mesh {
   constructor(geometry) {
     this.geometry = geometry;
@@ -34,4 +29,10 @@ class SkinnedMesh extends Mesh {
     return new THREE.Matrix4();
   }
 }
+
+// Classes can be either defined in a Statement or an Expression
+var c = class C {};
+
+// The class to be extended can also be an Expression
+var d = class D extends (class E {}) {};
 

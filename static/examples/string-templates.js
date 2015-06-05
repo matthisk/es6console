@@ -1,13 +1,18 @@
+// JavaScript string literals have some limitations
+// i.e. they do not allow for new-line characters.
+// or the interleaving of variables. String-Templates
+// do have these features:
+
 // Basic literal string creation
-`In JavaScript '\n' is a line-feed.`
+console.log(`In JavaScript '\n' is a line-feed.`);
 
 // Multiline strings
-`In JavaScript this is
- not legal.`
+console.log(`In JavaScript this is
+ not legal.`);
 
 // Construct a DOM query
 var name = "Bob", time = "today";
-`Hello ${name}, how are you ${time}?`
+console.log(`Hello ${name}, how are you ${time}?`);
 
 // Construct an HTTP request prefix is used to interpret the replacements and construction
 GET`http://foo.org/bar?a=${a}&b=${b}

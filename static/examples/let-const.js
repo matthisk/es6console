@@ -1,39 +1,15 @@
+// Declaration declared through 'var' are hoisted and function
+// scoped. Variables declared through either 'let' or 'const'
+// are block-scoped an not available in the temporal dead-zone.
+
 function f() {
+  let x = 'n';
   {
-    let x;
-    {
-      // okay, block scoped name
-      const x = "sneaky";
-    }
+    // okay, block scoped name
+    const x = "sneaky";
   }
+
+  console.log(x);
 }
 
-let bar = 123;
-{
-	let bar = 456;
-	{
-		let bar = 789;
-	}
-}
-bar === 123;
-
-function tempDeadZone() {
-  var passed = (function() { try { qux; } catch(e) { return true; } })();
-  let qux = 123;
-  return passed;
-}
-
-for (let i = 0; i< 10; i++) {
-  for (let i = 0; i < 10; i++) {
-    for (let i = 0; i < 10; i++) {
-      console.log(i)
-    }
-  } 
-}
-
-function g() {
-  {
-    let x = 10;
-  }
-  return x;
-}
+f();
