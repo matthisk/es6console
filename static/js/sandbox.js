@@ -1,6 +1,7 @@
 var runtimeScripts = [
   '/node_modules/babel-core/browser-polyfill.js',
-  '/node_modules/traceur/bin/traceur-runtime.js'
+  '/node_modules/traceur/bin/traceur-runtime.js',
+  '/node_modules/regenerator/runtime.js'
 ];
 
 export default class SandBox {
@@ -13,10 +14,10 @@ export default class SandBox {
     // to our own console.
     this.frame.contentWindow.console.log = this.log.bind(this);
 
-    for( script of runtimeScripts ) {
+    for( let src of runtimeScripts ) {
       var script = this.frame.contentDocument.createElement('script');
       script.type = 'text/javascript';
-      script.src = script;
+      script.src = src;
       this.frame.contentDocument.body.appendChild(script);
     }
   }
