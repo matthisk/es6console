@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-if( process.env.NODE_ENV === 'production' ) require('newrelic');
+if( process.env.NODE_ENV === 'production' ) var newrelic = require('newrelic');
 
 var express = require('express'),
     fs = require('fs'),
