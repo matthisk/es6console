@@ -50,8 +50,14 @@ i { color: $icon-color; }
   cursor: pointer;
 }
 
-.toolbar .btn-share {
+.toolbar .btn-share,
+.toolbar .flattr {
   float: right;
+}
+
+.toolbar .flattr {
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 .editor {
