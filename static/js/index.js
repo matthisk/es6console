@@ -51,6 +51,7 @@ var $ = document.querySelector.bind(document),
     selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
+    inputEditor.setValue(loadLocalStorage());
     loadCompiler('Babel');
     loadExamples();
     bindEventHandlers();
@@ -75,6 +76,20 @@ var $ = document.querySelector.bind(document),
 
     outputEditor.setValue( code );
     Editors.setErrorMarkers( inputEditor, errors );
+  }
+
+  function loadLocalStorage() {
+    if( window.localStorage ) {
+      var code = localStorage.getItem('code');
+      if( code ) return code;
+      else return '';
+    }
+  }
+
+  function saveLocalStorage(editor) {
+    if( window.localStorage ) {
+      localStorage.setItem('code',editor.getValue());
+    }
   }
 
   function save() {
@@ -171,6 +186,7 @@ var $ = document.querySelector.bind(document),
     selector.on('select',loadCompiler);
 
     inputEditor.on('change',transform);
+    inputEditor.on('change',saveLocalStorage);
 
     var cmdEnter = (editor,event) => {
       if(event.metaKey && event.keyCode == 13) run();
