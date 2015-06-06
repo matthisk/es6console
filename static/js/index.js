@@ -38,15 +38,17 @@ var $ = document.querySelector.bind(document),
       shareBtn = $(".btn-share"),
       shareView = $(".share-view");
 
-  var cnsl = new Console(),
-      sandbox = new SandBox( cnsl ),
+  var cnsl,
+      sandbox,
       inputEditor, outputEditor,
       compiler = 'Babel',
-      selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
+      selector;
 
   (function init() {
-    $('.console').style.display = 'block';
     sizeWindow( wrapper );
+    cnsl = new Console();
+    sandbox = new SandBox( cnsl );
+    selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
     loadCompiler('Babel');
@@ -56,7 +58,7 @@ var $ = document.querySelector.bind(document),
   })();
 
   function sizeWindow( wr ) {
-    var height = window.innerHeight - 85;
+    var height = window.innerHeight - 55;
     
     wr.style.display = 'block';
     wr.style.height = `${height+15}px`;
@@ -76,7 +78,6 @@ var $ = document.querySelector.bind(document),
   }
 
   function save() {
-    debugger;
     var p = ajax({
       type : 'POST',
       url : '/save',
@@ -91,9 +92,9 @@ var $ = document.querySelector.bind(document),
     });
   }
 
-  function run( input ) {
-    sandbox.runCode( outputEditor.getValue() + input );
-    cnsl.clear();
+  function run(input) {
+    sandbox.updateUserCode(outputEditor.getValue());
+    if( input ) cnsl.exec(input);
   }
 
   function showShare() {
@@ -169,7 +170,6 @@ var $ = document.querySelector.bind(document),
 
     selector.on('select',loadCompiler);
 
-    cnsl.on('run',run);
     inputEditor.on('change',transform);
   }
 })();

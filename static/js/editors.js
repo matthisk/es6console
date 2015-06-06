@@ -4,6 +4,7 @@ import jsMode from 'codemirror/mode/javascript/javascript';
 var GUTTER_ID = "Compiler-markers";
 var config = {
   mode : "javascript",
+  theme : "eclipse",
   lineNumbers : true,
   gutters : [GUTTER_ID,'CodeMirror-linenumbers'],
   viewportMargin : Infinity,

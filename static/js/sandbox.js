@@ -1,3 +1,5 @@
+import Compilers from './compilers';
+
 var runtimeScripts = [
   '/node_modules/babel-core/browser-polyfill.js',
   '/node_modules/traceur/bin/traceur-runtime.js',
@@ -7,12 +9,13 @@ var runtimeScripts = [
 export default class SandBox {
   constructor( cnsl ) {
     this.cnsl = cnsl;
+
     var body = document.getElementsByTagName('body')[0];
     this.frame = document.createElement('iframe');
     body.appendChild(this.frame);
-    // Overwrite the console log function of the sandbox to write results
-    // to our own console.
-    this.frame.contentWindow.console.log = this.log.bind(this);
+
+    this.cnsl.evaluate = this.runCode.bind(this);
+    this.cnsl.wrapLog(this.frame.contentWindow.console);
 
     for( let src of runtimeScripts ) {
       var script = this.frame.contentDocument.createElement('script');
@@ -22,37 +25,29 @@ export default class SandBox {
     }
   }
 
-  runCode( code ) {
-    let result;
-    try {
-      result = this.frame.contentWindow.eval( code );
-    } catch( e ) {
-      return this.cnsl.writeError( e );
-    }
-    this.cnsl.writeLine( result );
+  updateUserCode( code ) {
+    if(this.userCode) this.frame.contentDocument.body.removeChild(this.userCode);
+
+    this.userCode = this.frame.contentDocument.createElement('script');
+    this.userCode.type = 'text/javascript';
+    this.frame.contentDocument.body.appendChild(this.userCode);
+    this.userCode.innerHTML = code;
   }
 
-  log( ...args ) {
-    let res = '';
-    if( typeof args[0] === 'string' && args[0].search("%s") !== -1) {
-      let s = args[0],
-          search,
-          i = 1;
-
-      while( i < args.length && (search = s.search(/%s|%d|%i|%f]/)) !== -1 ) {
-        let replace = s[search] + s[search+1];
-        s = s.replace(replace,args[i]);
-        i++;
+  runCode( code ) {
+    let out = {};
+    try {
+      code = Compilers['Babel'].compiler(code, { blacklist: ['useStrict'] }).code;
+      out.completionValue = this.frame.contentWindow.eval.call(null,code);
+    } catch(e) {
+      out.error = true;
+      if(e instanceof this.frame.contentWindow.Error) {
+        out.completionValue = window[e.name](e.message); // e is an instance of an Error object from the frames window object
+      } else {
+        out.completionValue = new Error(e);
       }
-
-      res = s;
-    } else {
-      args.forEach(arg => {
-        if( typeof arg === 'object' ) res += `${JSON.stringify(arg)} `;
-        else res += `${arg} `;
-      });
+      out.recoverable = (( e instanceof SyntaxError || e instanceof this.frame.contentWindow.SyntaxError ) && e.message.match('Unexpected (token|end)'));
     }
-
-    this.cnsl.writeLine( `<span class="log">[log]</span> ${res}` ); 
+    return out;
   }
 }

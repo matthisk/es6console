@@ -32,6 +32,7 @@
     "gulp-sass": "^2.0.1",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
+    "jsconsole": "matthisk/jsconsole",
     "newrelic": "^1.19.2",
     "node-libs-browser": "^0.5.2",
     "pg": "^4.3.0",

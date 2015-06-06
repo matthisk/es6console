@@ -1,27 +1,27 @@
-.CodeMirror {
+.editor-wrapper .CodeMirror {
   height: auto !important;
   line-height: $mono-line-height;
   font-size: $mono-font-size;
   font-family: $font-family-mono; 
 }
 
-.CodeMirror-gutters {
+.editor-wrapper .CodeMirror-gutters {
   background-color: $divider-color;
 }
 
-.CodeMirror-linenumber {
+.editor-wrapper .CodeMirror-linenumber {
   font-family: $font-family-linenumber;
   font-size: $linenumber-font-size;
   color: #CCC;
 }
 
-.compiler-error-marker {
+.editor-wrapper .compiler-error-marker {
   font-size: $mono-font-size ;
   line-height: $mono-line-height;
   color: $error-color;
 }
 
-.compiler-error-tooltip {
+.editor-wrapper .compiler-error-tooltip {
   background-color: infobackground;
   border: 1px solid $divider-color;
   border-radius: 2px;
@@ -43,7 +43,7 @@
   -ms-transition: opacity .4s;
 }
 
-.compiler-error-mark {
+.editor-wrapper .compiler-error-mark {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
   background-position: left bottom;
   background-repeat: repeat-x;
