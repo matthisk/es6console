@@ -171,5 +171,11 @@ var $ = document.querySelector.bind(document),
     selector.on('select',loadCompiler);
 
     inputEditor.on('change',transform);
+
+    var cmdEnter = (editor,event) => {
+      if(event.metaKey && event.keyCode == 13) run();
+    };
+    outputEditor.on('keydown', cmdEnter);
+    inputEditor.on('keydown', cmdEnter);
   }
 })();
