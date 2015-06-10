@@ -107,9 +107,9 @@ var $ = document.querySelector.bind(document),
     });
   }
 
-  function run(input) {
-    sandbox.updateUserCode(outputEditor.getValue());
-    if( input ) cnsl.exec(input);
+  function run(input, onlyUpdate = false) {
+    sandbox.updateUserCode(outputEditor.getValue(), onlyUpdate);
+    if( input ) return sandbox.runCode(input);
   }
 
   function showShare() {
@@ -182,6 +182,7 @@ var $ = document.querySelector.bind(document),
     runBtn.addEventListener('click',() => run());
     saveBtn.addEventListener('click', save);
     shareBtn.addEventListener('click',showShare);
+    cnsl.evaluate = code => run(code, true);
 
     selector.on('select',loadCompiler);
 
