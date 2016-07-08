@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-if( process.env.NODE_ENV === 'production' ) var newrelic = require('newrelic');
+// if( process.env.NODE_ENV === 'production' ) var newrelic = require('newrelic');
 
 var express = require('express'),
     fs = require('fs'),
@@ -23,7 +23,7 @@ var express = require('express'),
     app = express(),
     PORT = process.env.PORT || 3000;
 
-if( process.env.NODE_ENV === 'production' ) app.locals.newrelic = newrelic;
+// if( process.env.NODE_ENV === 'production' ) app.locals.newrelic = newrelic;
 
 app.engine('html', swig.renderFile);
 app.set('view engine','html');
