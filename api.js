@@ -9,7 +9,7 @@ function saveSnippet(req) {
 
   if(req.body) {
     var code = req.body.code;
-   
+
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
         console.error('Error fetching client from pool', err);
@@ -19,7 +19,14 @@ function saveSnippet(req) {
 
       var query = client.query('INSERT INTO snippets(id,code) values($1,$2)',[id,code]);
 
+      query.on('error', function(error) {
+        done();
+        console.error('Unable to save snippet with error:', error);
+        deferred.reject('unable to save snippet');
+      });
+
       query.on('end',function() {
+        done();
         client.end();
         deferred.resolve({ saved: true, id: id });
       });
@@ -50,10 +57,13 @@ function getSnippet(req) {
       query.on('row',function(row) { code = row.code; });
 
       query.on('error', function(error) {
+        done();
+        console.error('Unable to retrieve snippet with id:', id, 'with error:', error);
         deferred.reject('unable to retrieve snippet with id: ' + id);
       });
 
       query.on('end', function(result) {
+        done();
         deferred.resolve(code);
       });
     });

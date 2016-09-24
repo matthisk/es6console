@@ -1,6 +1,7 @@
 #console-output {
   position: relative;
   overflow-y: scroll;
+  cursor: text;
 }
 #console-output .CodeMirror-scroll {
   height: auto;

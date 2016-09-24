@@ -13,8 +13,7 @@ export default class SandBox {
     var body = document.getElementsByTagName('body')[0];
     this.frame = document.createElement('iframe');
     body.appendChild(this.frame);
-
-    this.cnsl.evaluate = this.runCode.bind(this);
+  
     this.cnsl.wrapLog(this.frame.contentWindow.console);
 
     for( let src of runtimeScripts ) {
@@ -25,17 +24,21 @@ export default class SandBox {
     }
   }
 
-  updateUserCode( code ) {
+  updateUserCode( code, onlyUpdate ) {
+    if( onlyUpdate && this.userCode && this.userCode.innerHTML == code ) return;
+
     if(this.userCode) this.frame.contentDocument.body.removeChild(this.userCode);
 
     this.userCode = this.frame.contentDocument.createElement('script');
     this.userCode.type = 'text/javascript';
     this.frame.contentDocument.body.appendChild(this.userCode);
+
     this.userCode.innerHTML = code;
   }
 
   runCode( code ) {
     let out = {};
+
     try {
       code = Compilers['Babel'].compiler(code, { blacklist: ['useStrict'] }).code;
       out.completionValue = this.frame.contentWindow.eval.call(null,code);
