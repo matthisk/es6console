@@ -36,6 +36,10 @@ var CodeMirror;
         this.resetInput();
       };
 
+      var clear = () => {
+        console.log('Clear input');
+      };
+
       var up = (cm, evt) => {
         var cursor = this.input.getCursor();
         if (cursor.line === 0 && cursor.ch === 0) {
@@ -64,7 +68,8 @@ var CodeMirror;
         "Down": down,
         "Ctrl-C": cancel,
         "Enter": enter,
-        "Shift-Enter": shiftEnter
+        "Shift-Enter": shiftEnter,
+        "Ctrl-L": clear,
       };
 
       var outputContainer = document.createElement('div');
