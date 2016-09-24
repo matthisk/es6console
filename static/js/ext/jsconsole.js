@@ -37,7 +37,7 @@ var CodeMirror;
       };
 
       var clear = () => {
-        console.log('Clear input');
+        this.output.setValue('');
       };
 
       var up = (cm, evt) => {
