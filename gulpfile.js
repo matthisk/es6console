@@ -12,7 +12,6 @@ var BUILD = process.env.NODE_ENV === 'production';
 var basePlugins = [new webpack.DefinePlugin({
     PRODUCTION: JSON.stringify(BUILD),
     ENVIRONMENT: JSON.stringify(process.env.NODE_ENV),
-    GIT_HASH: JSON.stringify(require('child_process').execSync('git rev-parse HEAD').toString().trim().slice(0,9)),
 })];
 
 if( ! BUILD ) {

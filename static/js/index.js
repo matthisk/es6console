@@ -37,9 +37,7 @@ var $ = document.querySelector.bind(document),
 (function() {
     // Initialize Sentry.io Raven
     if (PRODUCTION && window.Raven) {
-        Raven.config('https://830240a30b9d4229add8932a16a17096@sentry.io/101285', {
-          release: GIT_HASH
-        }).install();
+        Raven.config('https://830240a30b9d4229add8932a16a17096@sentry.io/101285').install();
     } else if(PRODUCTION) {
         console.error('window.Raven is undefined, something went wrong while loading sentry-raven library');
     }
