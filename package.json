@@ -32,7 +32,7 @@
     "express": "^4.12.4",
     "font-awesome": "^4.3.0",
     "gulp": "^3.8.11",
-    "gulp-sass": "^2.0.1",
+    "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "jsconsole": "matthisk/jsconsole",
