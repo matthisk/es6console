@@ -55,6 +55,7 @@ var $ = document.querySelector.bind(document),
     if (!inputTextArea.textContent) {
         inputEditor.setValue(loadLocalStorage());
     }
+
     loadCompiler('Babel');
     loadExamples();
     bindEventHandlers();
@@ -197,5 +198,6 @@ var $ = document.querySelector.bind(document),
     };
     outputEditor.on('keydown', cmdEnter);
     inputEditor.on('keydown', cmdEnter);
+    cnsl.input.on('keydown', cmdEnter);
   }
 })();
