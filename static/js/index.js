@@ -49,9 +49,12 @@ var $ = document.querySelector.bind(document),
     cnsl = new Console();
     sandbox = new SandBox( cnsl );
     selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
+
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
-    inputEditor.setValue(loadLocalStorage());
+    if (!inputTextArea.textContent) {
+        inputEditor.setValue(loadLocalStorage());
+    }
     loadCompiler('Babel');
     loadExamples();
     bindEventHandlers();
