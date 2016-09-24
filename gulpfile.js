@@ -43,7 +43,7 @@ gulp.task('webpack',function(callback) {
     },
 
     watch : !BUILD,
-    devtool : BUILD ? '' : '#source-map',
+    devtool : '#source-map',
 
     resolve : { 
       alias : {
