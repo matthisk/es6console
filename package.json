@@ -4,6 +4,9 @@
   "description": "Js Fiddle for ES6, using different transformers avaiable (e.g. babeljs)",
   "main": "index.js",
   "repository": "git@github.com:matthisk/transformer-fiddle.git",
+  "engines": {
+    "node": "4.5.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "./node_modules/gulp/bin/gulp.js build"
