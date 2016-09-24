@@ -42,6 +42,13 @@ var $ = document.querySelector.bind(document),
         console.error('window.Raven is undefined, something went wrong while loading sentry-raven library');
     }
 
+    // Test Raven integration
+    try {
+        throw new Error('Raven is mad, yo');
+    } catch(e) {
+        Raven.captureException(e);
+    }
+
   // DOM Elements
   var wrapper = $('.wrapper'),
       inputTextArea = $("#input"),
