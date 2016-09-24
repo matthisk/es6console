@@ -35,6 +35,13 @@ var $ = document.querySelector.bind(document),
         {item: 'stage-3', value:'stage-3', checked: false },
     ];
 (function() {
+    // Initialize Sentry.io Raven
+    if (PRODUCTION && window.Raven) {
+        Raven.config('https://830240a30b9d4229add8932a16a17096@sentry.io/101285').install();
+    } else if(PRODUCTION) {
+        console.error('window.Raven is undefined, something went wrong while loading sentry-raven library');
+    }
+
   // DOM Elements
   var wrapper = $('.wrapper'),
       inputTextArea = $("#input"),

@@ -9,6 +9,11 @@ var gulp = require('gulp'),
 
 var BUILD = process.env.NODE_ENV === 'production'; 
 
+var basePlugins = [new webpack.DefinePlugin({
+    PRODUCTION: JSON.stringify(BUILD),
+    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV),
+})];
+
 if( ! BUILD ) {
   var browserSync = require('browser-sync').create(),
       reload = browserSync.reload,
@@ -56,7 +61,7 @@ gulp.task('webpack',function(callback) {
       ]
     },
 
-    plugins : BUILD ? [ new webpack.optimize.UglifyJsPlugin({ sourceMap: false }) ] : []
+    plugins : BUILD ? basePlugins.concat([ new webpack.optimize.UglifyJsPlugin({ sourceMap: true }) ]) : basePlugins
 
   }, function( err, stats ) {
     if(err) throw new gutil.PluginError('webpack',err);
