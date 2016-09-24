@@ -10,10 +10,10 @@ class Base {
   }
 }
 
-class Babel extends Base {
+class Babel5 extends Base {
     initCompiler( callback ) {
       $script(['/dist/compilers/browser.js'],() => {
-        this.compiler = babel;
+        this.compiler = window.babel;
         callback();
       });
     }
@@ -25,6 +25,40 @@ class Babel extends Base {
           errors = [];
       try {
         code = this.compiler.transform( input ).code;
+      } catch( e ) {
+        errors = [e];
+      }
+      
+      return {
+        code,
+        errors
+      };
+    }
+}
+
+class Babel extends Base {
+    initCompiler( callback ) {
+      $script(['https://unpkg.com/babel-standalone@6.15.0/babel.min.js'],() => {
+        this.compiler = window.Babel;
+        callback();
+      });
+    }
+
+    getPresets() {
+        if (window.Babel6Presets) {
+            return window.Babel6Presets;
+        } else {
+            return ['es2015'];
+        }
+    }
+
+    compile( input, options ) {
+      if( ! this.compiler ) return {};
+
+      let code = "",
+          errors = [];
+      try {
+        code = this.compiler.transform( input, { presets: this.getPresets(), ...options } ).code;
       } catch( e ) {
         errors = [e];
       }
@@ -148,6 +182,7 @@ class TypeScript extends Base {
 
 export default {
   'Babel' : new Babel(),
+  'Babel5' : new Babel5(),
   'Traceur' : new Traceur(),
   'TypeScript' : new TypeScript(),
   'Regenerator' : new Regenerator(),

@@ -19,11 +19,21 @@ function compilerItemExtra(url) {
 
 var $ = document.querySelector.bind(document),
     compilerItems = [
-          {item:'Babel JS',value:'Babel',extra:compilerItemExtra('http://babeljs.io')},
+          {item:'Babel JS (6)',value:'Babel',extra:compilerItemExtra('https://babeljs.io')},
+          {item:'Babel JS (5)',value:'Babel5',extra:compilerItemExtra('https://github.com/babel/babel/tree/5.x')},
           {item:'Traceur',value:'Traceur',extra:compilerItemExtra('https://github.com/google/traceur-compiler')},
           {item:'TypeScript',value:'TypeScript',extra:compilerItemExtra('http://www.typescriptlang.org/')},
-          {item:'Regenerator',value:'Regenerator',extra:compilerItemExtra('https://github.com/facebook/regenerator')}];
-
+          {item:'Regenerator',value:'Regenerator',extra:compilerItemExtra('https://github.com/facebook/regenerator')}],
+    presetItems = [
+        {item: 'es2015', value:'es2015', checked: true },
+        {item: 'es2016', value:'es2016', checked: false },
+        {item: 'es2017', value:'es2017', checked: false },
+        {item: 'react', value:'react', checked: false },
+        {item: 'stage-0', value:'stage-0', checked: false },
+        {item: 'stage-1', value:'stage-1', checked: false },
+        {item: 'stage-2', value:'stage-2', checked: false },
+        {item: 'stage-3', value:'stage-3', checked: false },
+    ];
 (function() {
   // DOM Elements
   var wrapper = $('.wrapper'),
@@ -32,6 +42,7 @@ var $ = document.querySelector.bind(document),
       compilerSelectBtn = $("#compiler-select"),
       compilerSelect = $('.transformers'),
       compilerLoader = $("#compiler-loader"),
+      presetsSelectBtn = $('#babel-6-presets'),
       runBtn = $("#run"),
       saveBtn = $("#save"),
       transformBtn = $("#transform"),
@@ -42,13 +53,15 @@ var $ = document.querySelector.bind(document),
       sandbox,
       inputEditor, outputEditor,
       compiler = 'Babel',
-      selector;
+      selector,
+      presets;
 
   (function init() {
     sizeWindow( wrapper );
     cnsl = new Console();
     sandbox = new SandBox( cnsl );
     selector = new Selector({ btn: compilerSelectBtn, el: compilerSelect, items:compilerItems  });
+    presets = new Selector({ btn: presetsSelectBtn, items:presetItems, checkbox: true  });
 
     [inputEditor,outputEditor] = Editors.create( inputTextArea, outputTextArea );
 
@@ -138,6 +151,14 @@ var $ = document.querySelector.bind(document),
     });
   }
 
+  function hidePresets(name) {
+    if (name !== 'Babel') {
+        presetsSelectBtn.style.display = 'none';
+    } else {
+        presetsSelectBtn.style.display = 'block';
+    }
+  }
+
   function spinner(el) {
     let oldClasses = el.className;
     el.className = 'fa fa-spinner fa-pulse';
@@ -181,6 +202,10 @@ var $ = document.querySelector.bind(document),
     });
   }
 
+  function setPresets(presets) {
+    window.Babel6Presets = presets;
+  }
+
   function bindEventHandlers() {
     transformBtn.addEventListener('click',transform)
     runBtn.addEventListener('click',() => run());
@@ -189,6 +214,8 @@ var $ = document.querySelector.bind(document),
     cnsl.evaluate = code => run(code, true);
 
     selector.on('select',loadCompiler);
+    selector.on('select',hidePresets);
+    presets.on('select', setPresets);
 
     inputEditor.on('change',transform);
     inputEditor.on('change',saveLocalStorage);

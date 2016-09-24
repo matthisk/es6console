@@ -1,5 +1,9 @@
 import Compilers from './compilers';
 
+// Disable modules so we do not insert use-strict
+// on the first line.
+const ES2015 = ['es2015', { modules: false }];
+
 var runtimeScripts = [
   '/node_modules/babel-core/browser-polyfill.js',
   '/node_modules/traceur/bin/traceur-runtime.js',
@@ -40,7 +44,7 @@ export default class SandBox {
     let out = {};
 
     try {
-      code = Compilers['Babel'].compiler(code, { blacklist: ['useStrict'] }).code;
+      code = Compilers['Babel'].compile(code, { presets: [ES2015] }).code;
       out.completionValue = this.frame.contentWindow.eval.call(null,code);
     } catch(e) {
       out.error = true;
