@@ -73,6 +73,9 @@ function makeMarker( msg ) {
 
 function setErrorMarker( editor, error ) {
   var loc = error.loc;
+  if (!loc || typeof loc.offset !== 'function') { 
+    return;
+  }
   var offset = error.loc.offset();
   var mark = editor.markText(
     {line: loc.line-1,ch:loc.column},
