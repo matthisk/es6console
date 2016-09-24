@@ -6,8 +6,8 @@ const ES2015 = ['es2015', { modules: false }];
 
 var runtimeScripts = [
   '/node_modules/babel-core/browser-polyfill.js',
-  '/node_modules/traceur/bin/traceur-runtime.js',
-  '/node_modules/regenerator/runtime.js'
+  // '/node_modules/traceur/bin/traceur-runtime.js',
+  // '/node_modules/regenerator/runtime.js'
 ];
 
 export default class SandBox {
