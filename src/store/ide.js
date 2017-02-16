@@ -422,6 +422,7 @@ const reducers = {
             console: {
                 ...state.console,
                 display: true,
+                completionValue: out.completionValue,
                 logBuffer: out.logBuffer,
             },
         };

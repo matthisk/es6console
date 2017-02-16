@@ -66,7 +66,7 @@ export const _Toolbar = ({
             </Menu.Item>
             <Menu.Item icon='chevron circle right'
                        shortcut='&#8984;+Enter'
-                       onClick={runCode}>
+                       onClick={e => runCode()}>
                 run
             </Menu.Item>
             <Menu.Item icon='refresh' 

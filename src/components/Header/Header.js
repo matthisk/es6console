@@ -30,7 +30,7 @@ export const Header = ({
 
         <Toolbar>
             <Toolbar.Item icon="video play outline"
-                          onClick={runCode}>
+                          onClick={e => runCode()}>
                 Run
             </Toolbar.Item>
             <Toolbar.Item icon="save"

@@ -15,6 +15,7 @@
 [*] Saving to psql
 [*] Loading from psql
 [*] Examples for es2016 and es2017 presets
+[] Draggable editor sizes
 [] Add Linter
 [] Loading screen
 
@@ -24,6 +25,7 @@
 [] Catch errors on iframe (sandbox)
 [] Saving from a snippet page doesn't seem to work
 [] Async examples will not log all statements to the console
+[] CompletionValue is not logged to console
 
 ### Future
 
