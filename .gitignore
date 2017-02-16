@@ -1,3 +1,4 @@
 node_modules
 static/dist
 static/style
+dist
