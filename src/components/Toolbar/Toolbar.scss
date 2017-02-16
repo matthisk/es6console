@@ -1,0 +1,90 @@
+@import "variables";
+
+$height: 50px;
+
+.toolbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: $height;
+
+    > li {
+        position: relative;
+        display: inline-block;
+        padding: 0 10px;
+        height: $height;
+        width: auto;
+        cursor: pointer;
+
+        > a {
+            display: block;
+        }
+    }
+
+    > li:hover {
+        border-bottom: 3px solid $primary-color;
+    }
+}
+
+.toolbar.right {
+    margin-left: auto;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    left: -205px;
+    top: 55px;
+
+    line-height: initial;
+    width: 300px;
+
+    background: #fff;
+    border: 1px solid rgb(245, 245, 245);
+    border-radius: 2px;
+
+    &__wrapper {
+        padding: 15px;
+        box-shadow: 0 0 1px rgba(57,70,78,.15), 0 20px 55px -8px rgba(57,70,78,.25);
+    }
+
+    &.open {
+        display: block;
+    }
+
+    p {
+        margin: 0;
+        line-height: 2rem;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 15px;
+    }
+}
+
+.dropdown__wrapper:after {
+    top: -10px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid #fff;
+    border-style: none double solid;
+}
+
+.dropdown__wrapper:before {
+    top: -11px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid rgba(57,70,78,.15);
+    border-style: none double solid;
+}
+
+.dropdown__wrapper:before,
+.dropdown__wrapper:after {
+    display: block;
+    position: absolute;
+    right: 10px;
+    vertical-align: middle;
+    content: "";
+    width: 0;
+    height: 0;
+}

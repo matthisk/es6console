@@ -1,0 +1,86 @@
+$font-family: 'Lato', sans-serif;
+$font-family-mono: "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+$font-family-linenumber: Helvetica;
+
+$divider-color: #f1f1f1;
+$divider-sec-color: #d1d1d1;
+$divider-ter-color: #a1a1a1;
+
+$gutter-bg-color: rgba(240,240,240,.3);
+$tooltip-bg-color: rgba(242,242,242,.8);
+
+$error-color: #d9534f;
+
+$mono-line-height: 1.5rem;
+$mono-font-size: .8rem;
+$linenumber-font-size: .6rem;
+
+.ReactCodeMirror .CodeMirror-gutters {
+  background-color: $gutter-bg-color;
+}
+
+.CodeMirror {
+    line-height: 1.2rem;
+}
+
+body .CodeMirror * {
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.ReactCodeMirror .CodeMirror-linenumber {
+  font-family: $font-family-mono;
+  font-size: $linenumber-font-size;
+  color: #CCC;
+}
+
+.ReactCodeMirror .compiler-error-marker {
+  font-size: $mono-font-size ;
+  color: $error-color;
+  margin-right: 0 !important;
+}
+
+.CodeMirror .compiler-markers {
+    width: 15px;
+}
+
+.CodeMirror .CodeMirror-linenumbers {
+    width: 15px;
+}
+
+.ReactCodeMirror.no-errors .CodeMirror .compiler-markers {
+    width: 0px;
+}
+
+.compiler-error-tooltip {
+  background-color: $tooltip-bg-color;
+  color: #c7254e;
+  opacity: 0;
+  
+  border: 1px solid $divider-color;
+  border-radius: 2px;
+  
+  font-family: $font-family-mono;
+  font-size: .7rem;
+  line-height: 1rem;
+  overflow: hidden;
+  
+  max-width: 600px;
+  padding: 2px 5px;
+  
+  position: fixed;
+  white-space: pre;
+  white-space: pre-wrap;
+  
+  z-index: 1000;
+  transition: opacity .4s;
+  -moz-transition: opacity .4s;
+  -webkit-transition: opacity .4s;
+  -o-transition: opacity .4s;
+  -ms-transition: opacity .4s;
+}
+
+.ReactCodeMirror .compiler-error-mark {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
+  background-position: left bottom;
+  background-repeat: repeat-x;
+}
