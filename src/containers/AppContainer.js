@@ -3,18 +3,17 @@ import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 
 import { DEFAULT_COMPILER } from 'compilers'
-import { 
-    selectCompiler,
-    transformCode,
-    runCode,
+import {
+  selectCompiler,
+  runCode,
 } from 'store/ide'
 import { loadExamples } from 'store/examples'
 import { loadThemes } from 'store/themes'
 
 class AppContainer extends Component {
   static propTypes = {
-    routes : PropTypes.object.isRequired,
-    store  : PropTypes.object.isRequired
+    routes: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -28,11 +27,11 @@ class AppContainer extends Component {
     this.props.store.dispatch(loadThemesAction);
   }
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate() {
     return false;
   }
 
-  render () {
+  render() {
     const { routes, store } = this.props
 
     return (

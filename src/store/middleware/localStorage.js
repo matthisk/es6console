@@ -20,3 +20,30 @@ export default store => next => action => {
 
     return result;
 }
+
+function _load() {
+    let state = false;
+
+    if (window.localStorage) {
+        state = localStorage.getItem('state', 'false');
+        
+        try {
+            state = JSON.parse(state);
+        } catch (e) {
+            console.error('Unable to parse persisted state', e);
+        }
+    }
+
+    return state;
+}
+
+export function loadPersistedState(...keys) {
+    let state = _load();
+
+    for (let key of keys) {
+        if (state !== undefined) state = state[key];
+        else return;
+    }
+
+    return state;
+}

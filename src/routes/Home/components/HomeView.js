@@ -15,7 +15,7 @@ import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
 class _REPLConsole extends Component {
 
     render() {
-        let { 
+        let {
             display,
             toggleConsoleDisplay,
         } = this.props;
@@ -27,10 +27,10 @@ class _REPLConsole extends Component {
 
         return (
             <div className={cn}>
-                <div className='ide__console-title' 
-                     onClick={toggleConsoleDisplay}>
+                <div className='ide__console-title'
+                    onClick={toggleConsoleDisplay}>
                     <span>Console</span>
-                    { !display ?
+                    {!display ?
                         <Icon name='chevron up' /> :
                         <Icon name='chevron down' />
                     }
@@ -64,19 +64,19 @@ class _IDEViewPort extends Component {
                             <span>ES6</span>
                         </div>
                     </div>
-                    <Editor name='es6' 
-                            onChange={this.props.transformOnType} />
+                    <Editor name='es6'
+                        onChange={this.props.transformOnType} />
                 </div>
 
                 <div className='ide__column'
-                     style={this.columnStyle()}>
+                    style={this.columnStyle()}>
                     <div className='ide__column-gutter second'
-                         onClick={this.props.toggleEditorDisplay.bind(null, 'es5')}>
+                        onClick={this.props.toggleEditorDisplay.bind(null, 'es5')}>
                         <div className='title'>
                             <span>ES5</span>
                         </div>
                     </div>
-                    <Editor name='es5'/>
+                    <Editor name='es5' />
                 </div>
             </div>
         );
