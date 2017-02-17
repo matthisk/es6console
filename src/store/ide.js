@@ -124,9 +124,11 @@ export function updateEditorConfig(key, value) {
 export function loadSnippet(id) {
     return {
         [CALL_API]: {
-            endpoint: `/api/snippet/${id}`,
+            endpoint: `/api/snippet/${id}/`,
             method: 'GET',
-            types: [actionTypes.LOAD_REQUEST, actionTypes.LOAD_SUCCESS, actionTypes.LOAD_FAILURE],
+            types: [actionTypes.LOAD_REQUEST, 
+                    actionTypes.LOAD_SUCCESS, 
+                    actionTypes.LOAD_FAILURE],
         }
     };
 }

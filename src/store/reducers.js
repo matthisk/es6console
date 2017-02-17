@@ -3,6 +3,7 @@ import locationReducer from './location'
 import ideReducer from './ide'
 import examplesReducer from './examples'
 import themeReducer from './themes'
+import loadingReducer from './ducks/loading'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -10,6 +11,7 @@ export const makeRootReducer = (asyncReducers) => {
     ide: ideReducer,
     examples: examplesReducer,
     themes: themeReducer,
+    loading: loadingReducer,
     ...asyncReducers
   })
 }

@@ -22,7 +22,7 @@ if (project.env === 'development') {
     debug('Enabling error handling middleware')
     app.use(function(err, req, res, next) {
       debug(err.stack)
-      next(err);
+      return next(err);
     });
 }
 

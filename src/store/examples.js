@@ -3,13 +3,7 @@ import { CALL_API } from 'redux-api-middleware'
 
 import { updateCode, transformCode } from 'store/ide'
 
-// ------------------------------------
-// Action Types
-// ------------------------------------
-const EXAMPLES_REQUEST = 'examples/EXAMPLES_REQUEST';
-const EXAMPLES_SUCCESS = 'examples/EXAMPLES_SUCCESS';
-const EXAMPLES_FAILURE = 'examples/EXAMPLES_FAILURE';
-const FETCH_EXAMPLE = 'examples/FETCH_EXAMPLE';
+import * as actionTypes from 'store/actionTypes' 
 
 // ------------------------------------
 // Actions
@@ -19,9 +13,9 @@ export function loadExamples() {
         [CALL_API]: {
             endpoint : '/api/examples/',
             method   : 'GET',
-            types    : [EXAMPLES_REQUEST,
-                        EXAMPLES_SUCCESS,
-                        EXAMPLES_FAILURE],
+            types    : [actionTypes.EXAMPLES_REQUEST,
+                        actionTypes.EXAMPLES_SUCCESS,
+                        actionTypes.EXAMPLES_FAILURE],
         }
     }
 }
@@ -32,7 +26,7 @@ export function showExample(group, example) {
             .then(res => res.text())
             .then(code => {
                 dispatch({
-                    type    : FETCH_EXAMPLE,
+                    type    : actionTypes.FETCH_EXAMPLE,
                     key     : example,
                     payload : code,
                 });
@@ -54,12 +48,12 @@ const initialState = {
 };
 export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case EXAMPLES_SUCCESS:
+        case actionTypes.EXAMPLES_SUCCESS:
             return {
                 ...state,
                 available: action.payload.examples,
             };
-        case FETCH_EXAMPLE:
+        case actionTypes.FETCH_EXAMPLE:
             return {
                 ...state,
                 selected: action.key,

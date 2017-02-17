@@ -8,6 +8,7 @@ import * as exampleActionCreators from 'store/examples'
 import compilers from 'compilers'
 import Menu from 'components/Menu'
 import Header from 'components/Header'
+import Loading from 'components/Loading'
 import './CoreLayout.scss'
 import 'styles/core.scss'
 
@@ -134,12 +135,23 @@ class CoreLayout extends Component {
         }
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (this.props.params.id !== nextProps.params.id && nextProps.params.id) {
+            this.props.loadSnippet(nextProps.params.id);
+        }
+    }
+
     render() {
-        let { children } = this.props;
+        let { 
+            children,
+            loading,
+        } = this.props;
 
         return (
 // Start JSX 
 <div className='core-layout__viewport'>
+    <Loading visible={loading > 0} />
+
     <Header />
     <nav>    
         <div className='sidebar-uno'>
@@ -189,4 +201,4 @@ CoreLayout.propTypes = {
   children : React.PropTypes.element.isRequired
 }
 
-export default connect(() => ({}), actionCreators)(CoreLayout)
+export default connect(state => ({ loading: state.loading }), actionCreators)(CoreLayout)

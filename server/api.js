@@ -42,12 +42,11 @@ function saveSnippet(req) {
       });
 
       query.on('end', function() {
-        done();
-        client.end();
         resolve({
           saved: true,
           id: id
         });
+        done();
       });
     });
   } else {
@@ -94,7 +93,6 @@ function getSnippet(req) {
         } else {
           resolve(code);
         }
-        client.end();
         done();
       });
 

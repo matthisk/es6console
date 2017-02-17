@@ -18,3 +18,12 @@ export const SAVE_REQUEST = 'ide/SAVE_REQUEST';
 export const LOAD_SUCCESS = 'ide/LOAD_SUCCESS';
 export const LOAD_FAILURE = 'ide/LOAD_FAILURE';
 export const LOAD_REQUEST = 'ide/LOAD_REQUEST';
+
+export const EXAMPLES_REQUEST = 'examples/EXAMPLES_REQUEST';
+export const EXAMPLES_SUCCESS = 'examples/EXAMPLES_SUCCESS';
+export const EXAMPLES_FAILURE = 'examples/EXAMPLES_FAILURE';
+export const FETCH_EXAMPLE = 'examples/FETCH_EXAMPLE';
+
+export const THEMES_REQUEST = 'examples/THEMES_REQUEST';
+export const THEMES_SUCCESS = 'examples/THEMES_SUCCESS';
+export const THEMES_FAILURE = 'examples/THEMES_FAILURE';
