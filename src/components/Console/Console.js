@@ -8,6 +8,7 @@ import JSConsole from './jsconsole'
 
 import './Console.scss'
 
+const CTRL_KEY = 'Ctrl';
 const HELP_TEXT = [
     '`Welcome to the interactive ES6 console',
     ' :help  -  Show this help text',
@@ -15,8 +16,9 @@ const HELP_TEXT = [
     ' Console commands:',
     ' Up & Down  -  Navigate command history',
     ' Enter      -  Execute code',
-    ' Ctrl-L     -  Clear console',
-    ' Ctrl-C     -  Cancel current command`',
+    ` ${CTRL_KEY}-L     -  Clear console`,
+    ` ${CTRL_KEY}-C     -  Cancel current command`,
+    ` ${CTRL_KEY}-S     -  Save snippet\``,
 
 ].join('\n');
 

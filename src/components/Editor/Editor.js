@@ -124,6 +124,7 @@ class _Editor extends Component {
         let {
             runCode,
             transformCode,
+            saveSnippet,
         } = this.props;
 
         let options = {
@@ -132,8 +133,12 @@ class _Editor extends Component {
             viewportMargin : Infinity,
             gutters : [GUTTER_ID,'CodeMirror-linenumbers'],
             extraKeys: {
-                'Cmd-Enter': cm => runCode(),
-                'Cmd-B': cm => transformCode(),
+                'Ctrl-Enter': cm => runCode(),
+                'Ctrl-B': cm => transformCode(),
+                'Ctrl-S': cm => {
+                    const code = cm.getValue();
+                    saveSnippet(code);
+                }
             }
         };
 

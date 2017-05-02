@@ -174,6 +174,12 @@ class CoreLayout extends Component {
                 <Icon name='book' />
             </div>
 
+            <a className='sidebar-uno__bottom-two' href="//twitter.com/tthisk">
+                <div className='button-round'>
+                    <Icon name='twitter' />
+                </div>
+            </a>
+
             <a className='sidebar-uno__bottom' href="//github.com/matthisk/es6console">
                 <div className='button-round'>
                     <Icon name='github' />

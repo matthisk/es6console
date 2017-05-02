@@ -222,7 +222,7 @@ function transformOnTypeReducer(state, action) {
     let {
         errors = [],
         code = ''
-    } = transform(state, action);
+    } = transformReducer(state, action);
 
     let { editors } = state;
 

@@ -59,6 +59,11 @@
     }
 }
 
+.sidebar-uno__bottom-two {
+    @extend .sidebar-uno__bottom;
+    bottom: 45px;
+}
+
 .button-round {
     width: 34px;
     height: 34px;
