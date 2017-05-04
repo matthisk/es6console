@@ -93,6 +93,7 @@
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
     "debug": "^2.2.0",
+    "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^1.0.0",
@@ -104,7 +105,7 @@
     "normalize.css": "^5.0.0",
     "pg": "~6.1.2",
     "postcss-loader": "^1.1.0",
-    "raw-loader": "~0.5.1",
+    "prepack": "~0.2.0",
     "react": "^15.0.0",
     "react-codemirror": "~0.3.0",
     "react-dom": "^15.0.0",
@@ -121,10 +122,7 @@
     "semantic-ui-react": "~0.64.7",
     "typescript": "~1.5.0",
     "url-loader": "^0.5.6",
-    "express": "^4.14.0",
-    "yargs": "^6.3.0"
-  },
-  "devDependencies": {
+    "yargs": "^6.3.0",
     "webpack": "^1.12.14",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
@@ -136,8 +134,12 @@
     "babel-runtime": "^6.11.6",
     "babel-eslint": "^7.1.0",
     "babel-plugin-istanbul": "^3.0.0",
-    "chai": "^3.4.1",
     "style-loader": "^0.13.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
     "rimraf": "^2.5.4",
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.6.1",
@@ -160,12 +162,9 @@
     "mocha": "^3.0.1",
     "nodemon": "~1.11.0",
     "phantomjs-prebuilt": "^2.1.12",
-    "raw-loader": "~0.5.1",
     "react-addons-test-utils": "^15.0.0",
     "redbox-react": "^1.2.10",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
   }
 }
