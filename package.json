@@ -106,6 +106,7 @@
     "pg": "~6.1.2",
     "postcss-loader": "^1.1.0",
     "prepack": "~0.2.0",
+    "raw-loader": "~0.5.1",
     "react": "^15.0.0",
     "react-codemirror": "~0.3.0",
     "react-dom": "^15.0.0",
