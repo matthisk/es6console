@@ -22,10 +22,10 @@ export default store => next => action => {
 }
 
 function _load() {
-    let state = false;
+    let state;
 
     if (window.localStorage) {
-        state = localStorage.getItem('state', 'false');
+        state = localStorage.getItem('state', '');
         
         try {
             state = JSON.parse(state);
@@ -41,7 +41,7 @@ export function loadPersistedState(...keys) {
     let state = _load();
 
     for (let key of keys) {
-        if (state !== undefined) state = state[key];
+        if (state) state = state[key];
         else return;
     }
 
