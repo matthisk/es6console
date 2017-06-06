@@ -25,7 +25,13 @@ const config = {
   // Server Configuration
   // ----------------------------------
   server_host : ip.address(), // use string 'localhost' to prevent exposure on local network
-  server_port : process.env.PORT || 3000,
+  server_port : process.env.PORT || 8000, 
+
+  // ----------------------------------
+  // API Server Configuration
+  // ----------------------------------
+  api_server_host : 'http://localhost:3000/', // use string 'localhost' to prevent exposure on local network
+  s3_server_host  : 'http://localhost:8000/',
 
   // ----------------------------------
   // Compiler Configuration
@@ -71,22 +77,6 @@ Edit at Your Own Risk
 ************************************************/
 
 // ------------------------------------
-// Environment
-// ------------------------------------
-// N.B.: globals added here must _also_ be added to .eslintrc
-config.globals = {
-  'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
-  },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
-}
-
-// ------------------------------------
 // Validate Vendor Dependencies
 // ------------------------------------
 const pkg = require('../package.json')
@@ -128,6 +118,24 @@ if (overrides) {
   Object.assign(config, overrides(config))
 } else {
   debug('No environment overrides found, defaults will be used.')
+}
+
+// ------------------------------------
+// Environment
+// ------------------------------------
+// N.B.: globals added here must _also_ be added to .eslintrc
+config.globals = {
+  'process.env'  : {
+    'NODE_ENV' : JSON.stringify(config.env)
+  },
+  'NODE_ENV'     : config.env,
+  '__DEV__'      : config.env === 'development',
+  '__PROD__'     : config.env === 'production',
+  '__TEST__'     : config.env === 'test',
+  '__COVERAGE__' : !argv.watch && config.env === 'test',
+  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
+  'API_SERVER_HOST' : JSON.stringify(config.api_server_host),
+  'S3_SERVER_HOST': JSON.stringify(config.s3_server_host),
 }
 
 module.exports = config

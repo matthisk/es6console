@@ -16,6 +16,8 @@ module.exports = {
   // Overrides when NODE_ENV === 'production'
   // ======================================================
   production : (config) => ({
+    api_server_host : 'https://eq0z5hd8w3.execute-api.eu-west-1.amazonaws.com/prod/',
+    s3_server_host  : 'http://es6console.s3-website-eu-west-1.amazonaws.com/',
     compiler_public_path     : '/',
     compiler_fail_on_warning : false,
     compiler_hash_type       : 'chunkhash',

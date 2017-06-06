@@ -124,7 +124,7 @@ export function updateEditorConfig(key, value) {
 export function loadSnippet(id) {
     return {
         [CALL_API]: {
-            endpoint: `/api/snippet/${id}/`,
+            endpoint: `${API_SERVER_HOST}api/snippet/${id}/`,
             method: 'GET',
             types: [actionTypes.LOAD_REQUEST, 
                     actionTypes.LOAD_SUCCESS, 
@@ -139,7 +139,7 @@ export function saveSnippet(code) {
     return dispatch => {
         dispatch({
             [CALL_API]: {
-                endpoint: '/api/snippet/save/',
+                endpoint: `${API_SERVER_HOST}api/snippet/save/`,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

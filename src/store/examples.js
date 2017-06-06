@@ -11,7 +11,7 @@ import * as actionTypes from 'store/actionTypes'
 export function loadExamples() {
     return {
         [CALL_API]: {
-            endpoint : '/api/examples/',
+            endpoint : `${API_SERVER_HOST}api/examples/`,
             method   : 'GET',
             types    : [actionTypes.EXAMPLES_REQUEST,
                         actionTypes.EXAMPLES_SUCCESS,
@@ -22,7 +22,7 @@ export function loadExamples() {
 
 export function showExample(group, example) {
     return dispatch => {
-        fetch(`/examples/${group}/${example}`)
+        fetch(`${S3_SERVER_HOST}examples/${group}/${example}`)
             .then(res => res.text())
             .then(code => {
                 dispatch({

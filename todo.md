@@ -30,7 +30,7 @@
 [*] Saving from a snippet page doesn't seem to work
 [] Async examples will not log all statements to the console
 [] CompletionValue is not logged to console
-[] locationChange should load snippet
+[*] locationChange should load snippet
 
 ### Future
 

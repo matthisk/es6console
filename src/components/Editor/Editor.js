@@ -142,10 +142,16 @@ class _Editor extends Component {
             }
         };
 
+        let code = this.props.code;
+        if (typeof this.props.code !== 'string') {
+            console.warn(`Expected code property to be of type 'string' and not '${typeof this.props.code}'`);
+            code = '';
+        }
+
         return (
             <CodeMirror
                 ref='editor'
-                value={this.props.code} 
+                value={code} 
                 options={options}
                 className={this.props.errors.length <= 0 ?
                            "no-errors" :
