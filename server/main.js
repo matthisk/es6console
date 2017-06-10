@@ -5,17 +5,11 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
-const createRoutes = require('./routes')
-const bodyParser = require('body-parser')
 
 const app = express()
 
 // Apply gzip compression
 app.use(compress())
-
-// The REST api requires parsed body
-app.use(bodyParser.json({ type: 'application/json' }));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 if (project.env === 'development') {
     // Debug toolbar middleware
@@ -25,9 +19,6 @@ if (project.env === 'development') {
       return next(err);
     });
 }
-
-// Apply our own server code
-createRoutes(app);
 
 // ------------------------------------
 // Apply Webpack HMR Middleware

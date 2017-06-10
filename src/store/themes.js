@@ -10,7 +10,7 @@ import * as actionTypes from 'store/actionTypes'
 export function loadThemes() {
     return {
         [CALL_API]: {
-            endpoint : '/api/themes/',
+            endpoint : `${API_SERVER_HOST}themes/`,
             method   : 'GET',
             types    : [actionTypes.THEMES_REQUEST,
                         actionTypes.THEMES_SUCCESS,

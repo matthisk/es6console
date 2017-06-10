@@ -1,5 +1,6 @@
 'use strict';
 const aws = require('aws-sdk');
+const project = require('../config/project.config.js');
 
 const options = {
     region: 'eu-west-1',
@@ -40,7 +41,7 @@ module.exports.handler = (event, context, callback) => {
     const s3 = new aws.S3(options);
 
     const params = {
-        Bucket: 'es6console',
+        Bucket: project.bucket_name,
         Delimiter: '/',
         Prefix: 'examples/',
     };
@@ -52,7 +53,7 @@ module.exports.handler = (event, context, callback) => {
 
         Promise.all(prefixes.map((prefix) => 
             listObjects(s3, {
-                Bucket: 'es6console',
+                Bucket: project.bucket_name,
                 Delimiter: '/',
                 Prefix: prefix,
             })
@@ -60,6 +61,9 @@ module.exports.handler = (event, context, callback) => {
             const content = makeBody(data);
             const response = {
                 statusCode: 200,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
                 body: JSON.stringify(content),
             };
 

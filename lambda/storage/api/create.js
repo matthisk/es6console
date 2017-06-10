@@ -38,6 +38,9 @@ module.exports.handler = (event, context, callback) => {
 
         const response = {
             statusCode: 201,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
             body: JSON.stringify({
                 message: 'Saved snippet',
                 saved: true,

@@ -34,6 +34,11 @@ const config = {
   s3_server_host  : 'http://localhost:8000/',
 
   // ----------------------------------
+  // AWS Configuration
+  // ----------------------------------
+  bucket_name : 'staging.es6console.com',
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_babel : {
@@ -112,7 +117,13 @@ config.paths = {
 // ========================================================
 debug(`Looking for environment overrides for NODE_ENV "${config.env}".`)
 const environments = require('./environments.config')
-const overrides = environments[config.env]
+let overrides = environments[config.env]
+
+if (config.env === 'dev') {
+  debug('Found serverless environment dev which translates to staging AWS env');
+  overrides = environments['staging'];
+}
+
 if (overrides) {
   debug('Found overrides, applying to default configuration.')
   Object.assign(config, overrides(config))

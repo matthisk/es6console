@@ -25,12 +25,14 @@
 
 ### Bugs
 
+[] (re)load theme on page reload
 [*] Console prints multiple times on run
 [] Catch errors on iframe (sandbox)
 [*] Saving from a snippet page doesn't seem to work
 [] Async examples will not log all statements to the console
 [] CompletionValue is not logged to console
 [*] locationChange should load snippet
+[] Shortcuts do not
 
 ### Future
 

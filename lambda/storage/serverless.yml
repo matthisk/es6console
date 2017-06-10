@@ -17,6 +17,7 @@ provider:
   stage: dev
   region: eu-west-1
   environment:
+    NODE_ENV: ${self:provider.stage}
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
@@ -28,27 +29,39 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    - Effect: Allow
+      Action:
+        - s3:Get*
+        - s3:List*
+      Resource: "arn:aws:s3:::staging.es6console.com"
 
 functions:
   get:
     handler: api/get.handler
     events:
       - http:
-          path: api/snippet/{id}
+          path: snippet/{id}
           method: get
           cors: true
   create:
     handler: api/create.handler
     events:
       - http:
-          path: api/snippet/save
+          path: snippet/save
           method: post
           cors: true
   listExamples:
     handler: api/examples.handler
     events:
       - http:
-          path: api/examples
+          path: examples
+          method: get
+          cors: true
+  listThemes:
+    handler: api/themes.handler
+    events:
+      - http:
+          path: themes
           method: get
           cors: true
 

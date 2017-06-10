@@ -109,7 +109,7 @@ export function updateEditorConfig(key, value) {
         var ss = document.createElement("link");
         ss.type = "text/css";
         ss.rel = "stylesheet";
-        ss.href = `/codemirror/themes/${value}.css`;
+        ss.href = `/codemirror/theme/${value}.css`;
         document.getElementsByTagName("head")[0].appendChild(ss);
     }
 
@@ -124,7 +124,7 @@ export function updateEditorConfig(key, value) {
 export function loadSnippet(id) {
     return {
         [CALL_API]: {
-            endpoint: `${API_SERVER_HOST}api/snippet/${id}/`,
+            endpoint: `${API_SERVER_HOST}snippet/${id}/`,
             method: 'GET',
             types: [actionTypes.LOAD_REQUEST, 
                     actionTypes.LOAD_SUCCESS, 
@@ -139,7 +139,7 @@ export function saveSnippet(code) {
     return dispatch => {
         dispatch({
             [CALL_API]: {
-                endpoint: `${API_SERVER_HOST}api/snippet/save/`,
+                endpoint: `${API_SERVER_HOST}snippet/save/`,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

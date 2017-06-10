@@ -20,6 +20,9 @@ module.exports.handler = (event, context, callback) => {
 
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
             body: JSON.stringify({
                 message: 'Retrieved snippet',
                 snippet: data.Item.code.S,

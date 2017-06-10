@@ -11,7 +11,7 @@ import * as actionTypes from 'store/actionTypes'
 export function loadExamples() {
     return {
         [CALL_API]: {
-            endpoint : `${API_SERVER_HOST}api/examples/`,
+            endpoint : `${API_SERVER_HOST}examples/`,
             method   : 'GET',
             types    : [actionTypes.EXAMPLES_REQUEST,
                         actionTypes.EXAMPLES_SUCCESS,
