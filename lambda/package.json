@@ -1,0 +1,23 @@
+{
+  "name": "es6console-aws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthisk <m@tthisk.nl> (http://matthisk.nl/)",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "~2.62.0",
+    "debug": "~2.6.8",
+    "ip": "~1.1.5",
+    "serverless-dynamodb-local": "~0.2.22",
+    "serverless-offline": "~3.14.1",
+    "yargs": "~8.0.1"
+  },
+  "devDependencies": {
+    "klaw": "~1.3.1",
+    "serverless-s3-local": "~0.2.3"
+  }
+}

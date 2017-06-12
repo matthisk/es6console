@@ -1,0 +1,27 @@
+.loading__viewport {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    opacity: 0;
+
+    transition: opacity .5s ease-in-out;
+
+    &-wrapper {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &.visible {
+        opacity: 1;
+    }
+
+    &.hidden {
+        display: none;
+    }
+}

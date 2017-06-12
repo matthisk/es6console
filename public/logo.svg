@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="20px" viewBox="0 0 100 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo">
+            <text id=".com" font-family="OpenSans-Light, Open Sans" font-size="9" font-weight="300" fill="#000000">
+                <tspan x="78.1826172" y="15">.com</tspan>
+            </text>
+            <text id="console" font-family="OpenSans, Open Sans" font-size="12" font-weight="normal" fill="#000000">
+                <tspan x="34.4667969" y="15">console</tspan>
+            </text>
+            <text id="ES6" font-family="Kollektif-Bold, Kollektif" font-size="18" font-weight="bold">
+                <tspan x="2.331" y="15" fill="#000000">ES</tspan>
+                <tspan x="23.121" y="15" fill="#FECA00">6</tspan>
+            </text>
+            <path d="M3,17 L97.0478602,17" id="Path-3" stroke="#FECA00" stroke-width="4"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,197 @@
+@font-face {
+  font-family: 'Meslo';
+  src: url('styles/meslo/MesloLGSDZ-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Meslo';
+  src: url('styles/meslo/MesloLGSDZ-Bold.woff') format('woff');
+  font-weight:bold;
+}
+@font-face {
+  font-family: 'Meslo';
+  src: url('styles/meslo/MesloLGSDZ-BoldItalic.woff') format('woff');
+  font-weight:bold;
+  font-style:italic;
+}
+@font-face {
+  font-family: 'Meslo';
+  src: url('styles/meslo/MesloLGSDZ-Italic.woff') format('woff');
+  font-style:italic;
+}
+
+.jsconsole .CodeMirror {
+    line-height: 1.2rem !important;
+}
+
+.jsconsole-input .CodeMirror .CodeMirror-cursor {
+    top: 2px !important;
+}
+
+.jsconsole-output:not(.hidden) ~ .jsconsole-input {
+    margin-top: -8px;
+}
+
+.jsconsole-output.hidden {
+    display: none;
+}
+
+.jsconsole-output .CodeMirror-code pre {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.jsconsole-output .CodeMirror-gutter-elt {
+    border-bottom: 1px solid rgb(230, 230, 230);
+    top: -1px;
+}
+
+.jsconsole .CodeMirror-gutter-elt {
+    width: 20px;
+    height: 22px;
+}
+
+.jsconsole .CodeMirror-gutter-elt .gutter-icon:before {
+  display: block;
+  content: "";
+  
+  width: 8px;
+  height: 10px;
+  margin: 7px auto;
+  
+  -webkit-user-select: none;
+
+  background-image: url(styles/gutter-icons.png);
+  background-size: 46px 10px;
+  background-position: 0 0;
+}
+
+.jsconsole .CodeMirror-gutter-elt .prompt:before {
+  left:5px;
+  background-position: -10px 0px;
+}
+
+.jsconsole .CodeMirror-gutter-elt .completion-value:before {
+  background-position: -18px 0px;
+}
+
+.jsconsole .CodeMirror-gutter-elt .prev-command:before {
+  background-position: -73px 0px;
+}
+
+.jsconsole .CodeMirror-gutter-elt .console-error:before {
+  top: 3px;
+  left: 2px;
+  background-position: -81px 0px;
+  width: 12px;
+}
+
+.jsconsole .CodeMirror-gutter-elt .prompt-continuation:before {
+  content : '..';
+  background:none;
+  left:4px;
+  top:0px;
+}
+
+.jsconsole .CodeMirror-code pre {
+  padding:3px 4px 2px 4px;
+}
+
+.jsconsole .CodeMirror-gutter.repl {
+  min-width: 20px;
+}
+
+.jsconsole .CodeMirror {
+  line-height: 1em;
+  font-family: Meslo, monospace;
+  font-size:11px;
+
+}
+
+/* don't know what's causing this to be necessary, there's a 4px offset to the selection*/
+.jsconsole .CodeMirror-selected {
+  background:Highlight !important;
+}
+
+.jsconsole .CodeMirror-gutters {
+ border-right: 0;
+ background-color: transparent;
+}
+
+.jsconsole-output .CodeMirror-cursor { visibility: hidden; }
+
+.jsconsole .CodeMirror {
+  height: auto;
+}
+.jsconsole .CodeMirror-code .prev-command span {
+  font-weight:normal
+}
+
+/* eclipse theme */
+
+.jsconsole.eclipse .CodeMirror-gutter-elt .prompt-continuation:before {
+  color:#3d80f1;
+}
+.jsconsole.eclipse .jsconsole-output .CodeMirror-code .type-error span {
+  color: red;
+}
+.jsconsole.eclipse .jsconsole-output .CodeMirror-code .type-undefined span {
+  color: hsl(0, 0%, 58%);
+}
+
+.jsconsole.eclipse .CodeMirror-code .prev-command span {
+  color: #0080ff;
+}
+
+.jsconsole.eclipse .CodeMirror .completion-value-end {
+  border-bottom: 1px solid hsl(0, 0%, 94%);
+}
+
+/* base16-dark theme */
+
+.jsconsole.base16-dark {
+  background-color:#151515;
+}
+
+.jsconsole.base16-dark .CodeMirror-gutter-elt .prompt-continuation:before {
+  color:#3d80f1;
+}
+.jsconsole.base16-dark .jsconsole-output .CodeMirror-code .type-error span {
+  color: red;
+}
+.jsconsole.base16-dark .jsconsole-output .CodeMirror-code .type-undefined span {
+  color: hsl(0, 0%, 58%);
+}
+
+.jsconsole.base16-dark .CodeMirror-code .prev-command span {
+  color: hsl(210, 100%, 65%);;
+}
+
+.jsconsole.base16-dark .CodeMirror .completion-value-end {
+  border-bottom: 1px solid hsl(0, 0%, 20%);
+}
+
+/* dark theme */
+
+.cm-s-dark.CodeMirror {background: #151515; color: #fff;}
+.cm-s-dark .CodeMirror-cursor {border-left: 1px solid #b0b0b0 !important;}
+
+.jsconsole.dark {
+  background-color:#151515;
+}
+
+.jsconsole.dark .CodeMirror-gutter-elt .prompt-continuation:before {
+  color:#3d80f1;
+}
+.jsconsole.dark .jsconsole-output .CodeMirror-code .type-error span {
+  color: #c20000;
+}
+.jsconsole.dark .jsconsole-output .CodeMirror-code .type-undefined span {
+  color: hsl(0, 0%, 83%);
+}
+
+.jsconsole.dark .CodeMirror-code .prev-command span {
+  color: hsl(0, 0%, 83%);
+}
+
+.jsconsole.dark .CodeMirror .completion-value-end {
+  border-bottom: 1px solid hsl(0, 0%, 20%);
+}

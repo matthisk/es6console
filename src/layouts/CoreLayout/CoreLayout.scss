@@ -1,0 +1,104 @@
+@import "variables";
+
+.core-layout__viewport {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(235, 235, 235);
+
+    > nav {
+        position: absolute;
+        width: 270px;
+        top: 50px;
+        left: 0;
+        bottom: 0;
+
+        border-right: 1px solid #fff;
+    }
+
+    > .content {
+        position: absolute;
+        left: 270px;
+        top: 50px;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+.sidebar-uno {
+    width: 50px;
+    height: 100%;
+    position: relative;
+    float: left;
+    padding: 10px 0;
+}
+
+.sidebar-dos {
+    height: 100%;
+    overflow-y: scroll;
+    margin-left: 50px;
+    padding-right: 10px;
+    padding-top: 10px;
+    position: relative;
+    background-color: rgb(247, 247, 247);
+}
+
+.sidebar-uno__bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .button-round:hover,
+    .button-round:active,
+    .button-round:focus {
+        background: rgb(64, 120, 192) !important;
+        
+        > i {
+            color: #fff;
+        }
+    }
+}
+
+.sidebar-uno__bottom-two {
+    @extend .sidebar-uno__bottom;
+    bottom: 45px;
+}
+
+.button-round {
+    width: 34px;
+    height: 34px;
+    margin: 0 8px 8px;
+    background-color: rgb(210, 210, 210);
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background .3s;
+
+    > i {
+        color: rgb(99, 99, 99);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        margin: 0;
+        font-size: 17px;
+        display: inline-block;
+        text-rendering: auto;
+        transition: color .1s;
+    }
+
+    &.active {
+        // background-color: rgb(99, 99, 99);
+        background: $primary-color !important;
+
+        > i {
+            color: #000;
+        }
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: #ccc;
+    }
+}

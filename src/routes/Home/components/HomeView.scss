@@ -1,0 +1,94 @@
+.ReactCodeMirror, .CodeMirror {
+    height: 100% !important;
+}
+
+.ide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ide__viewport {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.ide__column {
+    flex: 1;
+    position: relative;
+    padding-left: 25px;
+    transition: flex .3s;
+    min-height: 0px;
+    overflow-y: hidden;
+}
+
+.ide__column-gutter {
+    position: absolute;
+    z-index: 5000;
+    top: 0; left: 0;
+    bottom: 0;
+    width: 25px;
+
+    cursor: pointer;
+
+    font-size: 0.8571rem;
+    background: rgb(245, 245, 245);
+    border-right: 1px solid rgb(200, 200, 200);
+
+
+    &.second {
+        border-left: 1px solid rgb(220, 220, 220);
+    }
+
+    .title {
+        position: absolute;
+        transform: rotate(90deg);
+        transform-origin: left top;
+        left: 18px;
+        top: 10px;
+    }
+}
+
+.ide__console {
+    transition: flex .5s;
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+
+    &.collapsed {
+        flex: 0 0 25px;
+    }
+}
+
+.ide__console-title {
+    display: flex;
+    padding: 0 10px;
+    line-height: 23px;
+    cursor: pointer;
+    flex: 0 0 25px;
+
+    background: rgb(245, 245, 245);
+    border-top: 1px solid rgb(200, 200, 200);
+    border-bottom: 1px solid rgb(220, 220, 220);
+    font-size: 0.8571rem;
+    color: rgb(80, 80, 80);
+
+    > span {
+        overflow: hidden;
+        text-overflow: ellipses;
+    }
+
+    & > i {
+        text-align: right;
+        flex: 1;
+    }
+}
+
+.ide__console-console {
+    background: white;
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    min-height: 0;
+    cursor: text;
+}

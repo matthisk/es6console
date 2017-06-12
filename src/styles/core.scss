@@ -1,0 +1,38 @@
+@import 'base';
+@import '~normalize.css/normalize';
+@import "icons";
+
+html {
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 100%;
+
+  font-family: $font-family;
+  font-size: $font-size;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/**
+ * LINKS
+ */
+
+a {
+    text-decoration: none;
+}
