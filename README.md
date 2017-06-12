@@ -5,7 +5,6 @@ This is the main repository of es6console.com. A tool for playing around with EC
 ## Table of Contents
 1. [Features](#features)
 1. [Requirements](#requirements)
-1. [Getting Started](#getting-started)
 1. [Application Structure](#application-structure)
 1. [Development](#development)
   1. [Developer Tools](#developer-tools)
@@ -18,9 +17,6 @@ This is the main repository of es6console.com. A tool for playing around with EC
   1. [Styles](#styles)
   1. [Server](#server)
   1. [Production Optimization](#production-optimization)
-1. [Learning Resources](#learning-resources)
-1. [FAQ](#troubleshooting)
-1. [Thank You](#thank-you)
 
 ## Features
 * [serverless](http://serverless.com)
