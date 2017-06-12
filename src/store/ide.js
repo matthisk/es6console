@@ -109,7 +109,7 @@ export function updateEditorConfig(key, value) {
         var ss = document.createElement("link");
         ss.type = "text/css";
         ss.rel = "stylesheet";
-        ss.href = `/codemirror/theme/${value}.css`;
+        ss.href = `${S3_SERVER_HOST}codemirror/theme/${value}.css`;
         document.getElementsByTagName("head")[0].appendChild(ss);
     }
 
@@ -124,10 +124,15 @@ export function updateEditorConfig(key, value) {
 export function loadSnippet(id) {
     return {
         [CALL_API]: {
-            endpoint: `${API_SERVER_HOST}snippet/${id}/`,
+            endpoint: `${SNIPPET_BUCKET_URL}${id}`,
             method: 'GET',
             types: [actionTypes.LOAD_REQUEST, 
-                    actionTypes.LOAD_SUCCESS, 
+                    {
+                        type: actionTypes.LOAD_SUCCESS, 
+                        payload: (action, state, res) => {
+                            return res.text();
+                        }
+                    },
                     actionTypes.LOAD_FAILURE],
         }
     };

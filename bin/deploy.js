@@ -14,6 +14,8 @@ const s3 = new AWS.S3({
     region: 'eu-west-1',
 });
 
+const cf = new AWS.CloudFront({});
+
 function promisify(fn, thisScope) {
     return function decorator(...args) {
         return new Promise((resolve, reject) => {
@@ -124,5 +126,23 @@ const themes = path.join(__dirname, '../node_modules/codemirror/theme');
 
 deploy(dist)
     .on('end', () => {
-        deploy(themes, path.join(__dirname, '../node_modules'));
+        deploy(themes, path.join(__dirname, '../node_modules'))
+            .on('end', () => {
+                const params = {
+                    DistributionId: 'EDV35IT95U5Q7',
+                    InvalidationBatch: {
+                        CallerReference: `${Date.now()}`,
+                        Paths: {
+                            Quantity: 1,
+                            Items: ['/index.html'],
+                        }
+                    }
+                };
+
+                cf.createInvalidation(params, (err, data) => {
+                    if (err) return debug('Failed invalidation:', err.message);
+
+                    debug('Succesfully invalidated index.html');
+                });
+            });
     });

@@ -13,10 +13,18 @@ import {
     loadThemes
 } from 'store/themes'
 
+function getTypeIfObject(typeOrObject) {
+    if (typeof typeOrObject === 'object') {
+        return typeOrObject.type;
+    }
+
+    return typeOrObject;
+}
+
 const loadingTypes = [
-    loadSnippet('')[CALL_API].types,
-    loadExamples()[CALL_API].types,
-    loadThemes()[CALL_API].types,
+    loadSnippet('')[CALL_API].types.map(getTypeIfObject),
+    loadExamples()[CALL_API].types.map(getTypeIfObject),
+    loadThemes()[CALL_API].types.map(getTypeIfObject),
 ];
 
 const initialState = 0;

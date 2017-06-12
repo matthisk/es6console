@@ -30,13 +30,14 @@ const config = {
   // ----------------------------------
   // API Server Configuration
   // ----------------------------------
-  api_server_host : 'http://localhost:3000/', // use string 'localhost' to prevent exposure on local network
-  s3_server_host  : 'http://localhost:8000/',
+  api_server_host : `http://localhost:3000/`, // use string 'localhost' to prevent exposure on local network
+  s3_server_host  : 'http://staging.es6console.com/',
 
   // ----------------------------------
   // AWS Configuration
   // ----------------------------------
   bucket_name : 'staging.es6console.com',
+  snippet_bucket_url: 'https://s3-eu-west-1.amazonaws.com/es6console-prod-snippets/',
 
   // ----------------------------------
   // Compiler Configuration
@@ -147,6 +148,7 @@ config.globals = {
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
   'API_SERVER_HOST' : JSON.stringify(config.api_server_host),
   'S3_SERVER_HOST': JSON.stringify(config.s3_server_host),
+  'SNIPPET_BUCKET_URL': JSON.stringify(config.snippet_bucket_url),
 }
 
 module.exports = config

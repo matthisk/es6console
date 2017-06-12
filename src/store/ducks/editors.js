@@ -22,7 +22,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 'es6': {
                     ...state['es6'],
-                    code: action.payload.snippet,
+                    code: action.payload,
                 }
             };
 

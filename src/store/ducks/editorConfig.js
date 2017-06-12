@@ -11,6 +11,14 @@ let initialState = loadPersistedState('ide', 'editorConfig') || {
     theme : "default",
 };
 
+if (initialState.theme !== 'default') {
+    var ss = document.createElement("link");
+    ss.type = "text/css";
+    ss.rel = "stylesheet";
+    ss.href = `${S3_SERVER_HOST}codemirror/theme/${initialState.theme}.css`;
+    document.getElementsByTagName("head")[0].appendChild(ss);
+}
+
 export default function reducer(state = initialState, action) {
     switch(action.type) {
         case actionTypes.UPDATE_EDITOR_CONFIG:

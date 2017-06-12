@@ -14,8 +14,10 @@ module.exports = {
 
   staging: (config) => ({
     bucket_name : 'staging.es6console.com',
-    api_server_host : 'https://api-staging.es6console.com/v1/',
-    s3_server_host  : 'http://staging.es6console.com/',
+    api_server_host : 'https://zl9ct7ehp9.execute-api.eu-west-1.amazonaws.com/dev/',
+    s3_server_host  : 'http://staging.es6console.com.s3-website-eu-west-1.amazonaws.com/',
+    snippet_bucket_url: 'https://s3-eu-west-1.amazonaws.com/es6console-prod-snippets/',
+
     compiler_public_path     : '/',
     compiler_fail_on_warning : false,
     compiler_hash_type       : 'chunkhash',
@@ -34,6 +36,8 @@ module.exports = {
     bucket_name : 'es6console.com',
     api_server_host : 'https://api.es6console.com/v1/',
     s3_server_host  : 'http://es6console.com/',
+    snippet_bucket_url: 'https://s3-eu-west-1.amazonaws.com/es6console-prod-snippets/',
+
     compiler_public_path     : '/',
     compiler_fail_on_warning : false,
     compiler_hash_type       : 'chunkhash',

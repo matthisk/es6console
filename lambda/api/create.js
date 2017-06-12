@@ -1,9 +1,17 @@
 'use strict';
-const dynamo = require('./dynamodb');
+const AWS = require('aws-sdk');
+const project = require('../config/project.config');
 
 const options = {
     region: 'eu-west-1',
 };
+
+// if (process.env.IS_OFFLINE) {
+//     options.s3ForcePathStyle = true;
+//     options.endpoint = new AWS.Endpoint(project.s3_server_host);
+// }
+
+const S3 = new AWS.S3(options);
 
 module.exports.handler = (event, context, callback) => {
     let body;
@@ -19,18 +27,13 @@ module.exports.handler = (event, context, callback) => {
     const snippetId = parseInt(now, 10).toString(36);
 
     const params = {
-        TableName: process.env.DYNAMODB_TABLE,
-        Item: {
-            id: {
-                S: snippetId,
-            },
-            code: {
-                S: body.code,   
-            }
-        }
+        Bucket: process.env.SNIPPET_BUCKET_NAME,
+        Key: snippetId,
+        Body: new Buffer(body.code),
+        ACL: 'public-read',
     };
 
-    dynamo.putItem(params, (err, data) => {
+    S3.upload(params, (err, data) => {
         if (err) {
             console.error(err);
             return callback(err);

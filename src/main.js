@@ -5,6 +5,17 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 
+import Raven from 'raven-js'
+
+// ========================================================
+// Store Instantiation
+// ========================================================
+if (__PROD__) {
+  Raven
+      .config('https://830240a30b9d4229add8932a16a17096@sentry.io/101285')
+      .install();
+}
+
 // ========================================================
 // Store Instantiation
 // ========================================================

@@ -59,19 +59,19 @@ export const _Toolbar = ({
     <div className='sidebar-dos'>
         <Menu title="Commands">
             <Menu.Item icon='save' 
-                       shortcut='&#8984;+S'
+                       shortcut='Ctrl+S'
                        onClick={saveSnippet.bind(null,
                                                  editors['es6'].code)
                    }>
                 save code
             </Menu.Item>
             <Menu.Item icon='chevron circle right'
-                       shortcut='&#8984;+Enter'
+                       shortcut='Ctrl+Enter'
                        onClick={e => runCode()}>
                 run
             </Menu.Item>
             <Menu.Item icon='refresh' 
-                       shortcut='&#8984;+B'
+                       shortcut='Ctrl+B'
                        onClick={transformCode}>
                 transform
             </Menu.Item>
