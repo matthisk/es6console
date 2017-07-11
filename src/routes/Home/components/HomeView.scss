@@ -55,6 +55,7 @@
     flex: 0 0 250px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     &.collapsed {
         flex: 0 0 25px;
