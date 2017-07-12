@@ -10,6 +10,8 @@ const through2 = require('through2');
 const mime = require('mime-types');
 const argv = require('yargs').argv
 
+const EXCLUDES = ['.DS_Store'];
+
 const s3 = new AWS.S3({
     region: 'eu-west-1',
 });
@@ -38,6 +40,10 @@ function stripPath(inputPath, absPathPrefix) {
 }
 
 function uploadFile(objectKey, fileData) {
+    if (EXCLUDES.indexOf(objectKey) != -1) {
+        debug('Not uploading file', objectKey);
+    }
+    
     debug('Uploading file', objectKey);
 
     return s3Upload({
