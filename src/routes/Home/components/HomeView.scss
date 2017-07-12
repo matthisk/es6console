@@ -1,5 +1,12 @@
-.ReactCodeMirror, .CodeMirror {
+.ReactCodeMirror {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.ReactCodeMirror .CodeMirror {
     height: 100% !important;
+    width: 100%;
 }
 
 .ide {
@@ -20,7 +27,8 @@
     padding-left: 25px;
     transition: flex .3s;
     min-height: 0px;
-    overflow-y: hidden;
+    overflow: hidden;
+    background: #fff;
 }
 
 .ide__column-gutter {
