@@ -46,6 +46,11 @@ class _Editor extends Component {
         setTimeout(() => {
             this.editor.refresh();
         }, 0);
+
+        // Terrible hack to force Firefox into displaying the editor:
+        setTimeout(() => {
+            this.editor.refresh();
+        }, 250);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -129,6 +134,7 @@ class _Editor extends Component {
 
         let options = {
             ...this.props.options,
+            defaultValue: ' ',
             mode: 'javascript',
             viewportMargin : Infinity,
             gutters : [GUTTER_ID,'CodeMirror-linenumbers'],
