@@ -1,4 +1,4 @@
-import Base from './base'
+import Base from './base';
 
 export default class TypeScript extends Base {
   loadCompiler() {
@@ -9,16 +9,16 @@ export default class TypeScript extends Base {
   }
   
   compile( input ) {
-      this._checkIfCompilerIsLoaded();
+    this._checkIfCompilerIsLoaded();
 
-      let code = '',
-          errors = [];
+    let code = '',
+      errors = [];
       
-      code = this.compiler.transpile( input, { module: this.compiler.ModuleKind.CommonJS });
+    code = this.compiler.transpile( input, { module: this.compiler.ModuleKind.CommonJS });
 
-      return {
-        code,
-        errors
-      };
+    return {
+      code,
+      errors
+    };
   }
 }

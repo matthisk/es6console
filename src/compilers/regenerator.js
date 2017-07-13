@@ -8,7 +8,7 @@ export default class Regenerator extends Base {
       loc : {
         line : l,
         column : column,
-        offset : () => { return { line: l,column:endColumn} }
+        offset : () => { return { line: l,column:endColumn}; }
       },
       message : description
     };
@@ -24,8 +24,8 @@ export default class Regenerator extends Base {
   compile( input ) {
     this._checkIfCompilerIsLoaded();
 
-    let code = "",
-        errors = [];
+    let code = '',
+      errors = [];
 
     try {
       code = this.compiler.compile( input ).code;

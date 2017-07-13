@@ -1,9 +1,9 @@
-import Babel from './babel6'
-import Babel5 from './babel5'
-import Traceur from './traceur'
-import TypeScript from './typescript'
-import Regenerator from './regenerator'
-import Prepack from './prepack'
+import Babel from './babel6';
+import Babel5 from './babel5';
+import Traceur from './traceur';
+import TypeScript from './typescript';
+import Regenerator from './regenerator';
+import Prepack from './prepack';
 
 
 export const DEFAULT_COMPILER = 'Babel (6)';

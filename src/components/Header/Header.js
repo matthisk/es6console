@@ -1,14 +1,14 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { IndexLink, Link } from 'react-router'
-import './Header.scss'
+import React from 'react';
+import { connect } from 'react-redux';
+import { IndexLink, Link } from 'react-router';
+import './Header.scss';
 
-import * as actionCreators from 'store/ide'
+import * as actionCreators from 'store/ide';
 
-import Select from 'react-select'
-import Toolbar from 'components/Toolbar'
+import Select from 'react-select';
+import Toolbar from 'components/Toolbar';
 
-import 'react-select/dist/react-select.css'
+import 'react-select/dist/react-select.css';
 
 export const Header = ({
     code,
@@ -74,8 +74,8 @@ export const Header = ({
                         value={editorConfig.theme}
                         onChange={onChangeSelect('theme', updateEditorConfig)}
                         options={availableThemes.map(t => ({
-                            value: t,
-                            label: t,
+                          value: t,
+                          label: t,
                         }))} />
 
                 <br/>
@@ -89,26 +89,26 @@ export const Header = ({
                         value={editorConfig.indentUnit}
                         onChange={onChangeSelect('indentUnit', updateEditorConfig)}
                         options={[{
-                            value: 2,
-                            label: '2 spaces',
+                          value: 2,
+                          label: '2 spaces',
                         },{
-                            value: 3,
-                            label: '3 spaces',
+                          value: 3,
+                          label: '3 spaces',
                         },{
-                            value: 4,
-                            label: '4 spaces',
+                          value: 4,
+                          label: '4 spaces',
                         }]} />
             </Toolbar.DropDownItem>
         </Toolbar>
     </div>
-)
+);
 
 function mapStateToProps(state, ownProps) {
-    return {
-        editorConfig: state.ide.editorConfig,
-        code: state.ide.editors['es6'].code,
-        availableThemes: ['default'].concat(state.themes.available),
-    };
+  return {
+    editorConfig: state.ide.editorConfig,
+    code: state.ide.editors['es6'].code,
+    availableThemes: ['default'].concat(state.themes.available),
+  };
 }
 
-export default connect(mapStateToProps, actionCreators)(Header)
+export default connect(mapStateToProps, actionCreators)(Header);

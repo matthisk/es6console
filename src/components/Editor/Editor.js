@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import * as actionCreators from 'store/ide'
+import * as actionCreators from 'store/ide';
 
-import CodeMirrorInstance from 'codemirror'
-import CodeMirror from 'react-codemirror'
-import * as util from './utils'
+import CodeMirrorInstance from 'codemirror';
+import CodeMirror from 'react-codemirror';
+import * as util from './utils';
 
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/mode/javascript/javascript'
-import 'codemirror/addon/edit/matchbrackets'
-import 'codemirror/addon/comment/continuecomment'
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/comment/continuecomment';
 
-import './Editor.scss'
-import './theme.scss'
+import './Editor.scss';
+import './theme.scss';
 
-const GUTTER_ID = "compiler-markers";
+const GUTTER_ID = 'compiler-markers';
 const KEYS = CodeMirrorInstance.keyNames;
 
 class _Editor extends Component {
@@ -24,163 +24,163 @@ class _Editor extends Component {
      * CONSTRUCTOR
      */
     
-    constructor(...args) {
-        super(...args);
+  constructor(...args) {
+    super(...args);
 
-        this.markers = [];
-    }
+    this.markers = [];
+  }
 
     /**
      * GETTERS SETTERS
      */
 
-    get editor() {
-        return this.refs['editor'].getCodeMirror();
-    }
+  get editor() {
+    return this.refs['editor'].getCodeMirror();
+  }
 
     /**
      * LIFE CYCLE METHODS
      */
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.editor.refresh();
-        }, 0);
+  componentDidMount() {
+    setTimeout(() => {
+      this.editor.refresh();
+    }, 0);
 
         // Terrible hack to force Firefox into displaying the editor:
-        setTimeout(() => {
-            this.editor.refresh();
-        }, 250);
-    }
+    setTimeout(() => {
+      this.editor.refresh();
+    }, 250);
+  }
 
-    componentDidUpdate(prevProps, prevState) {
-        this.clearErrorMarkers();
-        this.setErrorMarkers(this.props.errors);
-    }
+  componentDidUpdate(prevProps, prevState) {
+    this.clearErrorMarkers();
+    this.setErrorMarkers(this.props.errors);
+  }
 
     /**
      * EVENT HANDLERS
      */
 
-    onChange(...args) {
-        this.props.updateCode(this.props.name, ...args);
+  onChange(...args) {
+    this.props.updateCode(this.props.name, ...args);
 
-        if (this.props.onChange) {
-            this.props.onChange(...args);
-        }
+    if (this.props.onChange) {
+      this.props.onChange(...args);
     }
+  }
 
     /**
      * METHODS
      */
     
-    clearErrorMarkers() {
-        this.editor.clearGutter(GUTTER_ID);
-        this.markers.forEach(marker => marker.clear());
-        this.markers = [];
-    }
+  clearErrorMarkers() {
+    this.editor.clearGutter(GUTTER_ID);
+    this.markers.forEach(marker => marker.clear());
+    this.markers = [];
+  }
 
-    setErrorMarkers(errors = []) {
-        errors.forEach(error => this.setErrorMarker( error ));
-    }
+  setErrorMarkers(errors = []) {
+    errors.forEach(error => this.setErrorMarker( error ));
+  }
 
-    setErrorMarker(error) {
-        var loc = error.loc;
+  setErrorMarker(error) {
+    var loc = error.loc;
 
-        if (!loc) {
-            throw new Error(['Trying to set an error marker for',
-                             'an error marker that has no loc prop']
+    if (!loc) {
+      throw new Error(['Trying to set an error marker for',
+        'an error marker that has no loc prop']
                             .join(' '));
-        }
+    }
         
-        this.editor.setGutterMarker(error.loc.line - 1,
+    this.editor.setGutterMarker(error.loc.line - 1,
                                     GUTTER_ID,
                                     util.makeMarker(error.message));
 
-        var offset;
-        if (typeof loc.offset !== 'function') { 
-            offset = {
-                line: loc.line,
-            };
-        } else {
-            offset = error.loc.offset();
-        }
-
-        var mark = this.editor.markText({
-            line: loc.line-1,
-            ch:loc.column
-        },
-        {
-            line: offset.line-1,
-            ch:isNaN(offset.column) ? null : offset.column
-        },
-        {
-            className: 'compiler-error-mark'
-        });
-
-        this.markers.push(mark);
+    var offset;
+    if (typeof loc.offset !== 'function') { 
+      offset = {
+        line: loc.line,
+      };
+    } else {
+      offset = error.loc.offset();
     }
+
+    var mark = this.editor.markText({
+      line: loc.line-1,
+      ch:loc.column
+    },
+      {
+        line: offset.line-1,
+        ch:isNaN(offset.column) ? null : offset.column
+      },
+      {
+        className: 'compiler-error-mark'
+      });
+
+    this.markers.push(mark);
+  }
 
     /**
      * RENDER METHOD
      */
 
-    render() {
-        let {
+  render() {
+    let {
             runCode,
             transformCode,
             saveSnippet,
         } = this.props;
 
-        let options = {
-            ...this.props.options,
-            defaultValue: ' ',
-            mode: 'javascript',
-            viewportMargin : Infinity,
-            gutters : [GUTTER_ID,'CodeMirror-linenumbers'],
-            extraKeys: {
-                'Ctrl-Enter': cm => runCode(),
-                'Ctrl-B': cm => transformCode(),
-                'Ctrl-S': cm => {
-                    const code = cm.getValue();
-                    saveSnippet(code);
-                }
-            }
-        };
-
-        let code = this.props.code;
-        if (typeof this.props.code !== 'string') {
-            console.warn(`Expected code property to be of type 'string' and not '${typeof this.props.code}'`);
-            code = '';
+    let options = {
+      ...this.props.options,
+      defaultValue: ' ',
+      mode: 'javascript',
+      viewportMargin : Infinity,
+      gutters : [GUTTER_ID,'CodeMirror-linenumbers'],
+      extraKeys: {
+        'Ctrl-Enter': cm => runCode(),
+        'Ctrl-B': cm => transformCode(),
+        'Ctrl-S': cm => {
+          const code = cm.getValue();
+          saveSnippet(code);
         }
+      }
+    };
 
-        return (
+    let code = this.props.code;
+    if (typeof this.props.code !== 'string') {
+      console.warn(`Expected code property to be of type 'string' and not '${typeof this.props.code}'`);
+      code = '';
+    }
+
+    return (
             <CodeMirror
                 ref='editor'
                 value={code} 
                 options={options}
                 className={this.props.errors.length <= 0 ?
-                           "no-errors" :
-                           ""}
+                           'no-errors' :
+                           ''}
                 onChange={this.onChange.bind(this)}
                 codeMirrorInstance={CodeMirrorInstance}
                 />
-        );
-    }
+    );
+  }
 }
 
 function mapStateToProps(state, ownProps) {
-    const editorName = ownProps.name;
-    const editors = state.ide.editors;
+  const editorName = ownProps.name;
+  const editors = state.ide.editors;
 
-    if (! Object.prototype.hasOwnProperty.call(editors, editorName)) {
-        throw new Error(`Unexpected editor name ${editorName}`);
-    }
+  if (! Object.prototype.hasOwnProperty.call(editors, editorName)) {
+    throw new Error(`Unexpected editor name ${editorName}`);
+  }
 
-    return {
-        ...editors[editorName],
-        options: state.ide.editorConfig,
-    };
+  return {
+    ...editors[editorName],
+    options: state.ide.editorConfig,
+  };
 }
 
 const Editor = connect(mapStateToProps, actionCreators)(_Editor);

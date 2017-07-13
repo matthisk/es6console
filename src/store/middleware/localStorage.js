@@ -1,49 +1,49 @@
 let localStorage = window.localStorage;
 
 if (! window.localStorage) {
-    localStorage = {
-        getItem(name, def) {
-            return def;
-        },
+  localStorage = {
+    getItem(name, def) {
+      return def;
+    },
 
-        setItem(name, value) {
-            return;
-        }
-    };
+    setItem(name, value) {
+      return;
+    }
+  };
 }
 
 export default store => next => action => {
-    let result = next(action);
-    let state = JSON.stringify(store.getState());
+  let result = next(action);
+  let state = JSON.stringify(store.getState());
 
-    localStorage.setItem('state', state);
+  localStorage.setItem('state', state);
 
-    return result;
-}
+  return result;
+};
 
 function _load() {
-    let state;
+  let state;
 
-    if (window.localStorage) {
-        state = localStorage.getItem('state', '');
+  if (window.localStorage) {
+    state = localStorage.getItem('state', '');
         
-        try {
-            state = JSON.parse(state);
-        } catch (e) {
-            console.error('Unable to parse persisted state', e);
-        }
+    try {
+      state = JSON.parse(state);
+    } catch (e) {
+      console.error('Unable to parse persisted state', e);
     }
+  }
 
-    return state;
+  return state;
 }
 
 export function loadPersistedState(...keys) {
-    let state = _load();
+  let state = _load();
 
-    for (let key of keys) {
-        if (state) state = state[key];
-        else return;
-    }
+  for (let key of keys) {
+    if (state) state = state[key];
+    else return;
+  }
 
-    return state;
+  return state;
 }

@@ -1,7 +1,7 @@
-import React from 'react'
-import './Menu.scss'
+import React from 'react';
+import './Menu.scss';
 
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 
 const Menu = ({ children, title, helpHref = false }) => (
     <div>
@@ -20,7 +20,7 @@ const Menu = ({ children, title, helpHref = false }) => (
             { children }
         </ul>
     </div>
-)
+);
 
 Menu.Item = ({ icon, children, shortcut, onClick, loading=false, active=false }) => (
     <li className={active ? 'active' : ''} onClick={onClick}>

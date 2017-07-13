@@ -8,7 +8,7 @@ export default class Prepack extends Base {
       loc : {
         line : l,
         column : column,
-        offset : () => { return { line: l,column:endColumn} }
+        offset : () => { return { line: l,column:endColumn}; }
       },
       message : description
     };
@@ -24,11 +24,11 @@ export default class Prepack extends Base {
   compile( input ) {
     this._checkIfCompilerIsLoaded();
 
-    let code = "",
-        errors = [];
+    let code = '',
+      errors = [];
 
     try {
-        code = this.compiler.prepack(input).code;
+      code = this.compiler.prepack(input).code;
     } catch (e) {
         // errors = [e];
     }
