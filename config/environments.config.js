@@ -35,7 +35,7 @@ module.exports = {
   production : (config) => ({
     bucket_name : 'es6console.com',
     api_server_host : 'https://api.es6console.com/v1/',
-    s3_server_host  : 'http://es6console.com/',
+    s3_server_host  : 'https://es6console.com/',
     snippet_bucket_url: 'https://s3-eu-west-1.amazonaws.com/es6console-prod-snippets/',
 
     compiler_public_path     : '/',
@@ -48,4 +48,4 @@ module.exports = {
       colors       : true
     }
   })
-}
+};
