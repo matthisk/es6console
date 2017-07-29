@@ -1,7 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
-import createLogger from 'redux-logger';
 import { browserHistory } from 'react-router';
 import makeRootReducer from './reducers';
 import { updateLocation } from './location';
@@ -25,11 +24,6 @@ export default (initialState = {}) => {
     if (typeof composeWithDevToolsExtension === 'function') {
       composeEnhancers = composeWithDevToolsExtension;
     }
-  }
-
-  if (__DEV__) {
-    const logger = createLogger();
-    middleware.push(logger);
   }
 
   // ======================================================
