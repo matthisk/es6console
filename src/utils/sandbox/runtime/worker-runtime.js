@@ -1,7 +1,7 @@
 let completionPort;
 
 self.onmessage = function(e) {
-  if (e.data.type === 'console') {
+  if (e.data === 'console') {
     // Define the console object
     self.console = { 
       _port: e.ports[0],           // Remember the port we log to
@@ -25,7 +25,7 @@ self.onmessage = function(e) {
     }
   }
 
-  if (e.data.type === 'completion') {
+  if (e.data === 'completion') {
     completionPort = e.ports[0];
   }
 };
