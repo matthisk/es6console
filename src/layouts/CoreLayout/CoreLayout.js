@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import className from 'classnames'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import className from 'classnames';
 
-import * as actionCreators from 'store/ide'
-import * as exampleActionCreators from 'store/examples'
+import * as actionCreators from 'store/ide';
+import * as exampleActionCreators from 'store/examples';
 
-import compilers from 'compilers'
-import Menu from 'components/Menu'
-import Header from 'components/Header'
-import Loading from 'components/Loading'
-import './CoreLayout.scss'
-import 'styles/core.scss'
+import compilers from 'compilers';
+import Menu from 'components/Menu';
+import Header from 'components/Header';
+import Loading from 'components/Loading';
+import './CoreLayout.scss';
+import 'styles/core.scss';
 
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 
 
 export const _Examples = ({
@@ -34,13 +34,13 @@ export const _Examples = ({
             </Menu>
         )}
     </div>
-)
+);
 
 function mapStateToProps2(state) {
-    return {
-        examples: state.examples.available,
-        selected: state.examples.selected,
-    };
+  return {
+    examples: state.examples.available,
+    selected: state.examples.selected,
+  };
 }
 
 const Examples = connect(mapStateToProps2, exampleActionCreators)(_Examples);
@@ -109,45 +109,45 @@ export const _Toolbar = ({
         </Menu> : null
         }
     </div>
-)
+);
 
 
 function mapStateToProps(state, ownProps) {
-    return state.ide;
+  return state.ide;
 }
 
 const Toolbar = connect(mapStateToProps, actionCreators)(_Toolbar);
 
 
 class CoreLayout extends Component {
-    state = {
-        selected: 'toolbar',
-    };
+  state = {
+    selected: 'toolbar',
+  };
 
-    componentDidMount() {
-        let {
+  componentDidMount() {
+    let {
             id = null,
         } = this.props.params;
 
-        if (id) {
-            console.log("Load snippet", id);
-            this.props.loadSnippet(id);
-        }
+    if (id) {
+      console.log('Load snippet', id);
+      this.props.loadSnippet(id);
     }
+  }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (this.props.params.id !== nextProps.params.id && nextProps.params.id) {
-            this.props.loadSnippet(nextProps.params.id);
-        }
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.params.id !== nextProps.params.id && nextProps.params.id) {
+      this.props.loadSnippet(nextProps.params.id);
     }
+  }
 
-    render() {
-        let { 
-            children,
-            loading,
-        } = this.props;
+  render() {
+    let { 
+        children,
+        loading,
+    } = this.props;
 
-        return (
+    return (
 // Start JSX 
 <div className='core-layout__viewport'>
     <Loading visible={loading > 0} />
@@ -156,21 +156,21 @@ class CoreLayout extends Component {
     <nav>    
         <div className='sidebar-uno'>
             <div className={className({
-                    'button-round': true,
-                    'active': this.state.selected == 'toolbar',
-                })}
+              'button-round': true,
+              'active': this.state.selected == 'toolbar',
+            })}
                  onClick={() => this.setState({
-                    selected: 'toolbar'
-                })}>
+                   selected: 'toolbar'
+                 })}>
                 <Icon name='code' />
             </div>
             <div className={className({
-                    'button-round': true,
-                    'active': this.state.selected == 'examples',
-                })}
+              'button-round': true,
+              'active': this.state.selected == 'examples',
+            })}
                  onClick={() => this.setState({ 
-                    selected: 'examples'
-                })}>
+                   selected: 'examples'
+                 })}>
                 <Icon name='book' />
             </div>
 
@@ -200,11 +200,11 @@ class CoreLayout extends Component {
     </div>
 </div>
         );
-    }
+  }
 }
 
 CoreLayout.propTypes = {
   children : React.PropTypes.element.isRequired
-}
+};
 
-export default connect(state => ({ loading: state.loading }), actionCreators)(CoreLayout)
+export default connect(state => ({ loading: state.loading }), actionCreators)(CoreLayout);

@@ -18,6 +18,13 @@ export default function reducer(state = initialState, action) {
       logBuffer: [],
     };
 
+  case actionTypes.FLUSH_RESULT:
+    return {
+      ...state,
+      in: null,
+      out: null,
+    };
+
   default:
     return state;
   }

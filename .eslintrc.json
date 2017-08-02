@@ -1,8 +1,10 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -12,14 +14,31 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["prettier", "react"],
   "globals": {
-    "__DEV__": true
+    "__DEV__": true,
+    "NODE_ENV": true,
+    "__DEV__": true,
+    "__PROD__": true,
+    "__TEST__": true,
+    "__COVERAGE__": true,
+    "__BASENAME__": true,
+    "API_SERVER_HOST": true,
+    "S3_SERVER_HOST": true,
+    "SNIPPET_BUCKET_URL": true
   },
   "rules": {
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"]
-  }
+  },
+  "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "trailingComma": "all",
+        "singleQuote": true
+      }
+    ]
 }

@@ -12,6 +12,7 @@ import 'react-select/dist/react-select.css';
 
 export const Header = ({
     code,
+    es5code,
     transformCode,
     runCode,
     editorConfig,
@@ -30,7 +31,7 @@ export const Header = ({
 
         <Toolbar>
             <Toolbar.Item icon="video play outline"
-                          onClick={e => runCode()}>
+                          onClick={() => runCode(es5code)}>
                 Run
             </Toolbar.Item>
             <Toolbar.Item icon="save"
@@ -103,10 +104,11 @@ export const Header = ({
     </div>
 );
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     editorConfig: state.ide.editorConfig,
     code: state.ide.editors['es6'].code,
+    es5code: state.ide.editors['es5'].code,
     availableThemes: ['default'].concat(state.themes.available),
   };
 }

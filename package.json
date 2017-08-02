@@ -105,11 +105,38 @@
   },
   "author": "Matthisk Heimensen <m@tthisk.nl> (http://matthisk.nl)",
   "license": "MIT",
+  "jest": {
+    "cacheDirectory": "<rootDir>/test/.cache",
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "transform": {
+      "\\.(js|jsx)$": "babel-jest"
+    },
+    "testRegex": "(\\.(test|spec))\\.(ts|tsx|js|jsx)$",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "enzyme"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}"
+    ]
+  },
   "dependencies": {
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-istanbul": "^3.0.0",
+    "babel-plugin-transform-remove-console": "^6.8.4",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "~6.22.0",
     "babel-preset-es2015": "^6.14.0",
@@ -162,19 +189,26 @@
     "yargs": "^6.3.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-remove-console": "^6.8.4",
     "chai": "^3.4.1",
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.6.1",
     "cheerio": "^0.22.0",
     "codecov": "^1.0.1",
-    "enzyme": "^2.0.0",
+    "enzyme": "^2.9.1",
     "eslint": "^3.0.1",
+    "eslint-config-prettier": "^2.3.0",
     "eslint-config-standard": "^6.0.0",
     "eslint-config-standard-react": "^4.0.0",
     "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^2.0.0",
+    "jest": "^20.0.4",
+    "jest-enzyme": "^3.6.1",
     "karma": "^1.0.0",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
@@ -186,8 +220,10 @@
     "mocha": "^3.0.1",
     "nodemon": "~1.11.0",
     "phantomjs-prebuilt": "^2.1.12",
+    "prettier": "^1.5.3",
     "react-addons-test-utils": "^15.0.0",
     "redbox-react": "^1.2.10",
+    "regenerator-runtime": "^0.10.5",
     "rimraf": "^2.5.4",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",

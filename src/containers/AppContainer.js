@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import { DEFAULT_COMPILER } from 'compilers'
 import {
   selectCompiler,
-  runCode,
 } from 'store/ide'
 import { loadExamples } from 'store/examples'
 import { loadThemes } from 'store/themes'

@@ -1,6 +1,7 @@
 import CodeMirror from 'codemirror';
 
-import { sandbox } from 'sandbox';
+import { sandbox } from 'utils/sandbox';
+import { complexFormatter } from 'utils';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
@@ -21,6 +22,7 @@ class Console {
     this.historyIndex = -1;
     this.events = {};
     this.commands = options.commands || {};
+    this.evaluate = options.evaluate;
 
     var enter = () => {
       var text = this.input.getValue().trim();
@@ -231,11 +233,10 @@ class Console {
       break;
     case 'object':
     case 'array':
-                // Todo: pretty print object output
-      output.formatted = JSON.stringify(value);
+      output.formatted = complexFormatter(value);
       break;
     case 'error':
-      output.formatted = value.message.trim();
+      output.formatted = JSON.stringify(value.message.trim());
       break;
     default:
       output.formatted = value.toString().trim();
@@ -243,33 +244,7 @@ class Console {
     return output;
   }
 
-  evaluate(code) {
-    let match = /\:(\w+)/.exec(code);
-
-    if (match) {
-      let fn = this.commands[match[1]];
-
-      if (fn) {
-        fn.call(this, code);
-        this.resetInput();
-        return;
-      }
-    }
-
-    let out = sandbox.runCode(code);
-
-    if (out.logBuffer.length) {
-      out.logBuffer.forEach((msg) => {
-        this.print(msg);
-      });
-    }
-
-    return out;
-  }
-
-  exec(text) {
-    this.isEvaluating = true;
-    var rv = this.evaluate(text);
+  renderResult(text, rv) {
     if (!rv) return;
     this.isEvaluating = false;
     var doc = this.input.getDoc();
@@ -281,7 +256,8 @@ class Console {
     } else if (rv.recoverable) {
       CodeMirror.commands.newlineAndIndent(this.input);
     } else {
-      this.appendEntry(text, rv.completionValue);
+      if (rv.hasOwnProperty('completionValue'))
+        this.appendEntry(text, rv.completionValue);
       this.addHistory(text);
       this.resetInput();
     }
@@ -290,6 +266,11 @@ class Console {
       if (line.lineNo() === 0) this.input.setMarker(line, prompt);
       else this.input.setMarker(line, promptContinuation);
     });
+  }
+
+  async exec(text) {
+    this.isEvaluating = true;
+    await this.evaluate(text);
   }
 
   resetInput(text = '') {

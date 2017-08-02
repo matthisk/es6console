@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 
-import fetch from 'isomorphic-fetch';
 import { CALL_API } from 'redux-api-middleware';
 
 import Compilers, { getCompiler, DEFAULT_COMPILER } from 'compilers';
-import { sandbox } from 'sandbox';
+import { sandbox, NO_COMPLETION_VALUE } from 'utils/sandbox';
 
-import { locationChange } from 'store/location';
 import { browserHistory } from 'react-router';
 import { loadPersistedState } from 'store/middleware/localStorage';
 
@@ -23,10 +21,28 @@ import {
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function runCode(code) {
+export function runCode(editorCode, consoleCode) {
+  return async (dispatch) => {
+    if (consoleCode) {
+      const payload = await sandbox.evaluateExpression(consoleCode, {
+        hideCompletionValue: true,
+        runtime: editorCode,
+      });
+      dispatch(ranCode(payload, consoleCode));
+    } else {
+      const payload = await sandbox.evaluate(editorCode);
+      dispatch(ranCode(payload, ''));
+    }
+  };
+}
+
+export function ranCode(payload, consoleCode) {
   return {
-    type: actionTypes.RUN_CODE,
-    payload: code,
+    type: actionTypes.RAN_CODE,
+    payload: {
+      ...payload,
+      consoleCode,
+    },
   };
 }
 
@@ -90,6 +106,12 @@ export function toggleConsoleDisplay() {
 export function flushBuffer() {
   return {
     type: actionTypes.FLUSH_BUFFER,
+  };
+}
+
+export function flushResult() {
+  return {
+    type: actionTypes.FLUSH_RESULT,
   };
 }
 
@@ -197,7 +219,7 @@ function transformReducer(state, action) {
   let code = compiler.compile(state.editors['es6'].code, options);
 
   if (code.errors.length == 0) {
-    sandbox.updateUserCode(code.code, true);
+    // sandbox.updateUserCode(code.code, true);
   }
 
   return code;
@@ -244,22 +266,22 @@ function transformOnTypeReducer(state, action) {
   };
 }
 
-function runCodeReducer(state, action) {
-  let out;
+function ranCodeReducer(state, action) {
   let { console } = state;
 
-  if (action.payload) {
-    out = sandbox.runCode(action.payload);
-  } else {
-    out = sandbox.runCode(state.editors['es6'].code);
-  }
-
-  return {
+  const result = {
     ...console,
     display: true,
-    completionValue: out.completionValue,
-    logBuffer: out.logBuffer,
+    in: action.payload.consoleCode,
+    out: action.payload.out,
+    logBuffer: action.payload.logBuffer,
   };
+
+  if (action.payload.completionValue === NO_COMPLETION_VALUE) {
+    delete result.out.completionValue;
+  }
+
+  return result;
 }
 
 const baseReducer = combineReducers({
@@ -275,10 +297,10 @@ export default function reducer(state, action) {
   state = baseReducer(state, action);
 
   switch (action.type) {
-  case actionTypes.RUN_CODE:
+  case actionTypes.RAN_CODE:
     return {
       ...state,
-      console: runCodeReducer(state, action)
+      console: ranCodeReducer(state, action)
     };
 
   case actionTypes.TRANSFORM_ON_TYPE:

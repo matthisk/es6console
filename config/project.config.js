@@ -30,8 +30,8 @@ const config = {
   // ----------------------------------
   // API Server Configuration
   // ----------------------------------
-  api_server_host: 'http://localhost:8000/', // use string 'localhost' to prevent exposure on local network
-  s3_server_host: 'http://staging.es6console.com/',
+  api_server_host: 'http://localhost:3000/', // use string 'localhost' to prevent exposure on local network
+  s3_server_host: 'http://localhost:8001/',
 
   // ----------------------------------
   // AWS Configuration

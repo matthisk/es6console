@@ -29,7 +29,7 @@ class _Console extends Component {
     this.jsconsole = new JSConsole(node, {
       mode: 'javascript',
       theme: 'default',
-      evaluate: this.props.runCode,
+      evaluate: async (consoleCode) => this.props.runCode(this.props.es5code, consoleCode),
       commands: {
         'help': function() {
           this.print(HELP_TEXT);
@@ -55,6 +55,11 @@ class _Console extends Component {
 
             // Remove these log items from the state
       this.props.flushBuffer();
+    }
+
+    if (this.props.out) {
+      this.jsconsole.renderResult(this.props.in, this.props.out);
+      this.props.flushResult();
     }
 
     this.jsconsole.output.refresh();
@@ -85,7 +90,10 @@ class _Console extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.ide.console;
+  return {
+    ...state.ide.console,
+    es5code: state.ide.editors.es5.code,
+  };
 }
 
 export default connect(mapStateToProps, actionCreators)(_Console);

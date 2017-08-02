@@ -1,90 +1,104 @@
 import Compilers from 'compilers';
 
-import { LogBuffer } from './log-buffer';
 import { newWorker } from './worker';
 
-// Disable modules so we do not insert use-strict
-// on the first line.
-const ES2015 = [
-  'es2015',
-  {
-    modules: false,
-  },
-];
+export const NO_COMPLETION_VALUE = 'ES6CONSOLE_NO_COMPLETION_VALUE';
 
-import runtimeScript from 'raw-loader!babel-polyfill/dist/polyfill.js';
-import wrapScript from 'raw-loader!./wrap-code.js';
+export function removeConsoleStatements(code) {
+  let compiler = Compilers['Babel (6)'];
 
-function createUserCodeBlobURL(code) {
-  var blob;
+  return compiler.transform(code, {
+    presets: [],
+    plugins: ['transform-remove-console'],
+  });
+}
+
+export function isExpression(code) {
+  let compiler = Compilers['Babel (6)'];
+  let result;
 
   try {
-    blob = new Blob([code], { type: 'application/javascript' });
+    result = compiler.transform(code, {
+      ast: true,
+      plugins: [],
+      presets: [],
+    });
   } catch (e) {
-    window.BlobBuilder =
-      window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
-    blob = new window.BlobBuilder();
-    blob.append(code);
-    blob = blob.getBlob();
+    return false;
   }
 
-  window.URL = window.URL || window.webkitURL;
+  return result.ast.program.body[0].type === 'ExpressionStatement';
+}
 
-  return window.URL.createObjectURL(blob);
+export function createError(e) {
+  const result = {};
+
+  result.recoverable =
+        (e instanceof SyntaxError) &&
+        e.message.match('Unexpected (token|end)');
+  result.error = true;
+  result.completionValue = new Error(e.message);
+
+  return result;
 }
 
 export default class SandBox {
-  constructor() {
-    this.logBuffer = new LogBuffer();
-  }
+  static defaultOptions = {
+    workerTimeout: 2500,
+    hideCompletionValue: true,
+    runtime: '',
+  };
+  
+  async evaluate(code, options) {
+    const opts = Object.assign({}, SandBox.defaultOptions, options);
 
-  updateUserCode() {
-    console.warn('[SandBox.updateUserCode] deprecated');
-  }
+    let result = await this._execute(code, opts);
 
-  runCode(code) {
-    let out = {
-      logBuffer: [],
-      out: null,
-    };
-    let compiler = Compilers['Babel (6)'];
-
-    // 1 : Compile the input code
-
-    try {
-      code = compiler.compile(code, {
-        presets: [ES2015],
-      }).code;
-    } catch (e) {
-      out.error = true;
-      if (e instanceof this.frame.contentWindow.Error) {
-        out.completionValue = window[e.name](e.message);
-        // e is an instance of an Error object from the
-        // frames window object
-      } else {
-        out.completionValue = new Error(e);
-      }
-      out.recoverable =
-        (e instanceof SyntaxError ||
-          e instanceof this.frame.contentWindow.SyntaxError) &&
-        e.message.match('Unexpected (token|end)');
+    if (opts.hideCompletionValue && ! result.out.error) {
+      result.completionValue = NO_COMPLETION_VALUE;
     }
 
-    // 2 : Wrap input code with wrapScript and prepend the babel runtime
+    return result;
+  }
 
-    let scriptAndRuntime = runtimeScript + wrapScript.replace('//CODE', code);
+  async evaluateExpression(code, options) {
+    const opts = Object.assign({}, SandBox.defaultOptions, options);
 
-    // 3 : Create a blob url with which to run a WebWorker
+    try {
+      opts.runtime = removeConsoleStatements(opts.runtime).code;
+    } catch (e) {
+      return {
+        out: createError(e),
+        logBuffer: [],
+      };
+    }
 
-    let blobURL = createUserCodeBlobURL(scriptAndRuntime);
+    let statement = code;
 
-    // 4 : Run a WebWorker
+    if (isExpression(code)) {
+      statement = `self.__consoleEXPR = ${code};`;
+    }
 
-    return newWorker(blobURL, this.logBuffer).then(completionValue => {
-      out.completionValue = completionValue;
+    return this._execute(statement, opts);
+  }
 
-      return out; 
-    });
+  async _execute(code, opts) {
+    let result = {};
+
+    // 1: Run the code
+
+    try {
+      result = await newWorker(code, opts);
+    } catch (e) {
+      // 1.5 : Handle errors
+
+      result.out = createError(e);
+      result.logBuffer = [];
+    }
+
+    // 2: Return the result
+
+    return result;
   }
 }
 

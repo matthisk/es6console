@@ -2,6 +2,7 @@
 // Action Types
 // ------------------------------------
 export const RUN_CODE = 'ide/RUN_CODE';
+export const RAN_CODE = 'ide/RAN_CODE';
 export const SELECT_COMPILER = 'ide/SELECT_COMPILER';
 export const LOADED_COMPILER = 'ide/LOADED_COMPILER';
 export const TRANSFORMED_CODE = 'ide/TRANSFORMED_CODE';
@@ -10,6 +11,7 @@ export const UPDATE_CODE = 'ide/UPDATE_CODE';
 export const TOGGLE_EDITOR_DISPLAY = 'ide/TOGGLE_EDITOR_DISPLAY';
 export const TOGGLE_CONSOLE_DISPLAY = 'ide/TOGGLE_CONSOLE_DISPLAY';
 export const FLUSH_BUFFER = 'ide/FLUSH_BUFFER';
+export const FLUSH_RESULT = 'ide/FLUSH_RESULT';
 export const TOGGLE_COMPILER_PRESET = 'ide/TOGGLE_COMPILER_PRESET';
 export const UPDATE_EDITOR_CONFIG = 'ide/UPDATE_EDITOR_CONFIG';
 export const SAVE_SUCCESS = 'ide/SAVE_SUCCESS';
