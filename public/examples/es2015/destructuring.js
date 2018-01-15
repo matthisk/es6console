@@ -12,7 +12,7 @@ function f( [a,b] ) {
   return a + b;
 }
 
-console.log( f[1,2] );
+console.log( f([1,2]) );
 
 // Computed properties (see object literal) can also be used
 // in object destructuring
